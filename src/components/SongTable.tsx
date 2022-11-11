@@ -9,13 +9,13 @@ export default function SongTable({
   title: string;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center w-full overflow-x-auto">
       <h1 className="text-2xl font-bold">{title}</h1>
       <table className="table-auto">
         <thead>
           <tr>
             <th className="px-4 py-2">Rank</th>
-            <th className="px-4 py-2">Album Image</th>
+            <th className="px-4 py-2">Image</th>
             <th className="px-4 py-2">Song Name</th>
             <th className="px-4 py-2">Artist Name</th>
             <th className="px-4 py-2">Album Name</th>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getToken, getTopTracksAndArtists } from "./utilities/Api";
+import { getToken, getTopTracksAndArtists, loginUrl } from "./utilities/Api";
 import {
   AUTH_ENDPOINT,
   CLIENT_ID,
@@ -10,6 +10,7 @@ import { TopTracksAndArtists } from "./components/Interfaces";
 import SongTable from "./components/SongTable";
 
 import NavBar from "./components/NavBar";
+import Spinner from "./components/Spinner";
 
 interface State {
   token: string;
@@ -56,12 +57,16 @@ function App() {
               songs={state.topTracksAndArtists?.topTracks.shortTermItems || []}
             />
           ) : (
+            // hero call to action using tailwind
             <div className="flex flex-col items-center justify-center h-full">
+              <h1 className="text-5xl font-bold text-gray-900">
+                Spotify Top Tracks
+              </h1>
               <a
-                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}
-                className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 lg:mt-0"
+                href={loginUrl}
+                className="bg-red-700 text-white px-3 py-2 rounded-md text-sm font-medium mt-4 hover:bg-red-600"
               >
-                Login to Spotify
+                Login
               </a>
             </div>
           )}
