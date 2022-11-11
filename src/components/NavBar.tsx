@@ -9,6 +9,11 @@ import {
   RESPONSE_TYPE,
 } from "../utilities/Config";
 
+interface NavBarLink {
+  name: string;
+  url: string;
+}
+
 export default function NavBar({
   token,
   handleLogOut,
@@ -16,13 +21,11 @@ export default function NavBar({
   token: string;
   handleLogOut: () => void;
 }) {
-  const [isOpened, setIsOpened] = useState(false);
+  //   const [isOpened, setIsOpened] = useState(false);
+
+  const links: NavBarLink[] = [];
 
   return (
-    // simple navbar using tailwind
-    // slight red color
-    // if logged in, show log out button
-    // if not logged in, show log in button
     <nav className="bg-red-500">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
@@ -104,6 +107,17 @@ export default function NavBar({
                   Blog
                 </a>
               </div> */}
+
+              {/* iterate through links */}
+              {links.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
           </div>
 
@@ -131,31 +145,15 @@ export default function NavBar({
         {/* {isOpened && (
           <div className="sm:hidden" id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <a
-                href="#"
-                className="bg-red-700 text-white block px-3 py-2 rounded-md text-base font-medium"
-                aria-current="page"
-              >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                About
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Contact
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Blog
-              </a>
+              {links.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
           </div>
         )} */}
