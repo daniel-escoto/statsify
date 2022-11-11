@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import NavBar from "./components/NavBar";
 
 const CLIENT_ID = "a9f3d6f7725b4767ac02c448af1cf31a";
 const REDIRECT_URI = "http://127.0.0.1:5173/";
@@ -81,28 +82,29 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      {token ? (
-        <>
-          <h1 className="text-2xl font-bold">Logged in!</h1>
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
-            onClick={logOut}
-          >
-            Log out
-          </button>
-        </>
-      ) : (
-        <>
-          <h1 className="text-2xl font-bold">Login to Spotify</h1>
-          <a
-            className="px-4 py-2 mt-4 text-white bg-green-500 rounded hover:bg-green-600"
-            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read%20user-read-email`}
-          >
-            Login
-          </a>
-        </>
-      )}
+    // layout that includes the navbar, using tailwind
+    <div className="flex flex-col h-screen">
+      <NavBar handleLogOut={logOut} token={token} />
+      <div className="flex-grow">
+        {/* welcome to Statsify */}
+        <div className="flex flex-col items-center justify-center h-full">
+          <h1 className="text-4xl font-bold text-gray-800">Statsify</h1>
+          <p className="text-gray-600">
+            A Spotify app that shows your top tracks
+          </p>
+          <div className="flex flex-col items-center justify-center mt-4 space-y-4">
+            {/* if the user is not logged in, show the login button */}
+            {!token && (
+              <a
+                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+                className="px-4 py-2 text-white bg-green-500 rounded-md"
+              >
+                Login to Spotify
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
