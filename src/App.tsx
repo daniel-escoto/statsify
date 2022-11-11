@@ -95,7 +95,7 @@ function App() {
           <div className="flex flex-col items-center justify-center mt-4 space-y-4">
             {!token && (
               <a
-                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}
                 className="px-4 py-2 text-white bg-green-500 rounded-md"
               >
                 Login to Spotify
