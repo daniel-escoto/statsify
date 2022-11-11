@@ -93,7 +93,6 @@ function App() {
             A Spotify app that shows your top tracks
           </p>
           <div className="flex flex-col items-center justify-center mt-4 space-y-4">
-            {/* if the user is not logged in, show the login button */}
             {!token && (
               <a
                 href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
