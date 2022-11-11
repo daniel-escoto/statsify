@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 import { getToken, getTopTracksAndArtists, loginUrl } from "./utilities/Api";
 
-import { TopTracksAndArtists } from "./components/Interfaces";
-import SongTable from "./components/SongTable";
+import {
+  SearchOptions,
+  TimeOptions,
+  TopTracksAndArtists,
+} from "./components/Interfaces";
 
 import NavBar from "./components/NavBar";
+import Table from "./components/Table";
+import Toggles from "./components/Toggles";
 
 interface State {
   token: string;
   topTracksAndArtists: TopTracksAndArtists | null;
   isLoading: boolean;
+  currentSearchOption: SearchOptions;
+  currentTimeOption: TimeOptions;
 }
 
 function App() {
@@ -17,6 +24,8 @@ function App() {
     token: "",
     topTracksAndArtists: null,
     isLoading: true,
+    currentSearchOption: SearchOptions.TRACK,
+    currentTimeOption: TimeOptions.SHORT_TERM,
   });
 
   useEffect(() => {
@@ -44,14 +53,27 @@ function App() {
   return (
     <div className="flex flex-col h-screen">
       <NavBar handleLogOut={logOut} token={state.token} />
-      <div className="flex-grow">
+      <div className="flex-grow pt-10">
         <>
           {state.token ? (
-            <SongTable
-              title="Top Tracks (Short Term)"
-              songs={state.topTracksAndArtists?.topTracks.shortTermItems || []}
-              isLoading={state.isLoading}
-            />
+            <div className="flex flex-col items-center justify-center w-full space-y-10">
+              <Toggles
+                currentSearchOption={state.currentSearchOption}
+                currentTimeOption={state.currentTimeOption}
+                setSearchOption={(searchOption) =>
+                  setState({ ...state, currentSearchOption: searchOption })
+                }
+                setTimeOption={(timeOption) =>
+                  setState({ ...state, currentTimeOption: timeOption })
+                }
+              />
+              <Table
+                isLoading={state.isLoading}
+                searchOptions={state.currentSearchOption}
+                timeOptions={state.currentTimeOption}
+                topTracksAndArtists={state.topTracksAndArtists}
+              />
+            </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full">
               <h1 className="text-5xl font-bold text-gray-900">Statsify</h1>

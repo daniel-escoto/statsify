@@ -65,3 +65,34 @@ export enum SearchOptions {
   TRACK = "track",
   ARTIST = "artist",
 }
+
+// given toptracksandartists, a time option, and a search option, return the filtered list
+export function filterTopTracksAndArtists(
+  topTracksAndArtists: TopTracksAndArtists,
+  timeOption: TimeOptions,
+  searchOption: SearchOptions
+): Song[] | Artist[] {
+  if (searchOption === SearchOptions.TRACK) {
+    switch (timeOption) {
+      case TimeOptions.SHORT_TERM:
+        return topTracksAndArtists.topTracks.shortTermItems;
+      case TimeOptions.MEDIUM_TERM:
+        return topTracksAndArtists.topTracks.mediumTermItems;
+      case TimeOptions.LONG_TERM:
+        return topTracksAndArtists.topTracks.longTermItems;
+      default:
+        return [];
+    }
+  } else {
+    switch (timeOption) {
+      case TimeOptions.SHORT_TERM:
+        return topTracksAndArtists.topArtists.shortTermItems;
+      case TimeOptions.MEDIUM_TERM:
+        return topTracksAndArtists.topArtists.mediumTermItems;
+      case TimeOptions.LONG_TERM:
+        return topTracksAndArtists.topArtists.longTermItems;
+      default:
+        return [];
+    }
+  }
+}

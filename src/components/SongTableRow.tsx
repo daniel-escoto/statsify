@@ -18,6 +18,7 @@ export default function SongTableRow({
     .replace(/^0+/, "");
 
   return (
+    // padding between rows
     <tr className="border-b border-gray-200 hover:bg-gray-100">
       <td className="text-center md:px-2">{rank}</td>
       <td className="flex items-center md:px-2">
