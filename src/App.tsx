@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { getToken, getTopTracksAndArtists } from "./components/Api";
+import { getToken, getTopTracksAndArtists } from "./utilities/Api";
 import {
   AUTH_ENDPOINT,
   CLIENT_ID,
   REDIRECT_URI,
   RESPONSE_TYPE,
-} from "./components/Config";
+} from "./utilities/Config";
 import { TopTracksAndArtists } from "./components/Interfaces";
 
 import NavBar from "./components/NavBar";

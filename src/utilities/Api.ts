@@ -1,4 +1,8 @@
-import { TopArtists, TopTracks, TopTracksAndArtists } from "./Interfaces";
+import {
+  TopArtists,
+  TopTracks,
+  TopTracksAndArtists,
+} from "../components/Interfaces";
 import {
   CLIENT_ID,
   REDIRECT_URI,
