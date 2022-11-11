@@ -18,23 +18,25 @@ export default function SongTableRow({
       <td className="py-3 px-6 text-center">
         <img src={albumImage} alt="Album" className="w-10 h-10 rounded" />
       </td>
-      <td className="py-3 px-6 text-center">
+      <td className="py-3 px-6 max-w-xs truncate hover:underline">
         <a href={songUrl} target="_blank" rel="noreferrer">
           {song.name}
         </a>
       </td>
-      <td className="py-3 px-6 text-center">
-        {song.artists.map((artist) => (
+      <td className="py-3 px-6 max-w-xs truncate">
+        {song.artists.map((artist, index) => (
           <a
             href={artist.external_urls.spotify}
             target="_blank"
             rel="noreferrer"
+            key={index}
           >
-            {artist.name}
+            <span className="hover:underline">{artist.name}</span>
+            {index !== song.artists.length - 1 ? ", " : ""}
           </a>
         ))}
       </td>
-      <td className="py-3 px-6 text-center">
+      <td className="py-3 px-6 max-w-xs truncate hover:underline">
         <a href={albumUrl} target="_blank" rel="noreferrer">
           {albumName}
         </a>

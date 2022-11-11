@@ -9,16 +9,16 @@ export default function SongTable({
   title: string;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center h-full">
-      <h1 className="text-4xl font-bold text-gray-800">{title}</h1>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="text-2xl font-bold">{title}</h1>
       <table className="table-auto">
         <thead>
           <tr>
             <th className="px-4 py-2">Rank</th>
-            <th className="px-4 py-2">Album</th>
-            <th className="px-4 py-2">Song</th>
-            <th className="px-4 py-2">Artist</th>
-            <th className="px-4 py-2">Album</th>
+            <th className="px-4 py-2">Album Image</th>
+            <th className="px-4 py-2">Song Name</th>
+            <th className="px-4 py-2">Artist Name</th>
+            <th className="px-4 py-2">Album Name</th>
           </tr>
         </thead>
         <tbody>
