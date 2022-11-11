@@ -54,3 +54,14 @@ export interface TopTracksAndArtists {
   topTracks: TopTracks;
   topArtists: TopArtists;
 }
+
+export enum TimeOptions {
+  SHORT_TERM = "short_term",
+  MEDIUM_TERM = "medium_term",
+  LONG_TERM = "long_term",
+}
+
+export enum SearchOptions {
+  TRACK = "track",
+  ARTIST = "artist",
+}
