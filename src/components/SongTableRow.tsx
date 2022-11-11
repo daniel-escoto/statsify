@@ -12,34 +12,44 @@ export default function SongTableRow({
   const songUrl = song.external_urls.spotify;
   const albumUrl = song.album.external_urls.spotify;
 
+  const formattedDuration = new Date(song.duration_ms)
+    .toISOString()
+    .substr(14, 5)
+    .replace(/^0+/, "");
+
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-100">
-      <td className="py-3 px-6 text-center">{rank}</td>
-      <td className="py-3 px-6 text-center">
-        <img src={albumImage} alt="Album" className="w-10 h-10 rounded" />
-      </td>
-      <td className="py-3 px-6 max-w-xs truncate hover:underline">
-        <a href={songUrl} target="_blank" rel="noreferrer">
-          {song.name}
-        </a>
-      </td>
-      <td className="py-3 px-6 max-w-xs truncate">
-        {song.artists.map((artist, index) => (
+      <td className="text-center md:px-2">{rank}</td>
+      <td className="flex items-center md:px-2">
+        <img
+          src={albumImage}
+          alt={albumName}
+          className="w-10 h-10 mr-2 rounded"
+        />
+        <div className="truncate">
           <a
-            href={artist.external_urls.spotify}
-            target="_blank"
-            rel="noreferrer"
-            key={index}
+            href={songUrl}
+            className="text-gray-900 font-medium truncate hover:underline"
           >
-            <span className="hover:underline">{artist.name}</span>
-            {index !== song.artists.length - 1 ? ", " : ""}
+            {song.name}
           </a>
-        ))}
+          <div className="text-gray-500 truncate ">
+            <a
+              className="hover:underline"
+              href={song.artists[0].external_urls.spotify}
+            >
+              {song.artists[0].name}
+            </a>
+          </div>
+        </div>
       </td>
-      <td className="py-3 px-6 max-w-xs truncate hover:underline">
-        <a href={albumUrl} target="_blank" rel="noreferrer">
+      <td className="hidden md:table-cell text-left">
+        <a href={albumUrl} className="text-gray-500 hover:underline">
           {albumName}
         </a>
+      </td>
+      <td className="text-right text-gray-400 md:px-2 pr-2">
+        {formattedDuration}
       </td>
     </tr>
   );

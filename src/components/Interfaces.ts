@@ -7,6 +7,7 @@ export interface Song {
   external_urls: {
     spotify: string;
   };
+  duration_ms: number;
 }
 
 export interface Album {

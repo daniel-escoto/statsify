@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import { getToken, getTopTracksAndArtists, loginUrl } from "./utilities/Api";
-import {
-  AUTH_ENDPOINT,
-  CLIENT_ID,
-  REDIRECT_URI,
-  RESPONSE_TYPE,
-} from "./utilities/Config";
+
 import { TopTracksAndArtists } from "./components/Interfaces";
 import SongTable from "./components/SongTable";
 
 import NavBar from "./components/NavBar";
-import Spinner from "./components/Spinner";
 
 interface State {
   token: string;
@@ -48,7 +42,6 @@ function App() {
   };
 
   return (
-    // layout that includes the navbar, using tailwind
     <div className="flex flex-col h-screen">
       <NavBar handleLogOut={logOut} token={state.token} />
       <div className="flex-grow">

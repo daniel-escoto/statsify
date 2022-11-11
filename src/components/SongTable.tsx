@@ -16,16 +16,15 @@ export default function SongTable({
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-auto">
+    <div className="flex flex-col items-center justify-center w-full">
       <h1 className="text-2xl font-bold">{title}</h1>
       <table className="table-auto">
-        <thead>
-          <tr>
-            <th className="px-4 py-2">Rank</th>
-            <th className="px-4 py-2">Image</th>
-            <th className="px-4 py-2">Song Name</th>
-            <th className="px-4 py-2">Artist Name</th>
-            <th className="px-4 py-2">Album Name</th>
+        <thead className="hidden md:table-header-group">
+          <tr className="text-left text-gray-400">
+            <th className="text-center md:px-2">#</th>
+            <th className="md:px-2">Title</th>
+            <th className="md:px-2">Album</th>
+            <th className="md:px-2">Duration</th>
           </tr>
         </thead>
         <tbody>
