@@ -7,6 +7,7 @@ import {
   RESPONSE_TYPE,
 } from "./utilities/Config";
 import { TopTracksAndArtists } from "./components/Interfaces";
+import SongTable from "./components/SongTable";
 
 import NavBar from "./components/NavBar";
 
@@ -48,23 +49,23 @@ function App() {
     <div className="flex flex-col h-screen">
       <NavBar handleLogOut={logOut} token={state.token} />
       <div className="flex-grow">
-        {/* welcome to Statsify */}
-        <div className="flex flex-col items-center justify-center h-full">
-          <h1 className="text-4xl font-bold text-gray-800">Statsify</h1>
-          <p className="text-gray-600">
-            A Spotify app that shows your top tracks
-          </p>
-          <div className="flex flex-col items-center justify-center mt-4 space-y-4">
-            {!state.token && (
+        <>
+          {state.token ? (
+            <SongTable
+              title="Top Tracks (Short Term)"
+              songs={state.topTracksAndArtists?.topTracks.shortTermItems || []}
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full">
               <a
                 href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}
-                className="px-4 py-2 text-white bg-green-500 rounded-md"
+                className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 lg:mt-0"
               >
                 Login to Spotify
               </a>
-            )}
-          </div>
-        </div>
+            </div>
+          )}
+        </>
       </div>
     </div>
   );
