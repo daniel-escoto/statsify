@@ -15,12 +15,14 @@ import Spinner from "./components/Spinner";
 interface State {
   token: string;
   topTracksAndArtists: TopTracksAndArtists | null;
+  isLoading: boolean;
 }
 
 function App() {
   const [state, setState] = useState<State>({
     token: "",
     topTracksAndArtists: null,
+    isLoading: true,
   });
 
   useEffect(() => {
@@ -34,7 +36,7 @@ function App() {
   useEffect(() => {
     if (state.token) {
       getTopTracksAndArtists(state.token).then((topTracksAndArtists) => {
-        setState({ ...state, topTracksAndArtists });
+        setState({ ...state, topTracksAndArtists, isLoading: false });
       });
     }
   }, [state.token]);
@@ -55,18 +57,19 @@ function App() {
             <SongTable
               title="Top Tracks (Short Term)"
               songs={state.topTracksAndArtists?.topTracks.shortTermItems || []}
+              isLoading={state.isLoading}
             />
           ) : (
-            // hero call to action using tailwind
             <div className="flex flex-col items-center justify-center h-full">
-              <h1 className="text-5xl font-bold text-gray-900">
-                Spotify Top Tracks
-              </h1>
+              <h1 className="text-5xl font-bold text-gray-900">Statsify</h1>
+              <p className="text-2xl text-gray-700">
+                Get all your Spotify stats in one place.
+              </p>
               <a
                 href={loginUrl}
-                className="bg-red-700 text-white px-3 py-2 rounded-md text-sm font-medium mt-4 hover:bg-red-600"
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
               >
-                Login
+                Sign in with Spotify
               </a>
             </div>
           )}

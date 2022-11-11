@@ -1,13 +1,20 @@
 import { Song } from "./Interfaces";
 import SongTableRow from "./SongTableRow";
+import Spinner from "./Spinner";
 
 export default function SongTable({
   songs,
   title,
+  isLoading,
 }: {
   songs: Song[];
   title: string;
+  isLoading: boolean;
 }) {
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-auto">
       <h1 className="text-2xl font-bold">{title}</h1>
