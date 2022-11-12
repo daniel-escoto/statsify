@@ -38,18 +38,26 @@ export default function SongTableRow({
               {song.name}
             </a>
             <a
-              href={albumUrl}
+              href={song.artists[0].external_urls.spotify}
               target="_blank"
               rel="noreferrer"
               className="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400"
             >
-              {albumName}
+              {/* artist name */}
+              {song.artists[0].name}
             </a>
           </div>
         </div>
       </td>
       <td className="hidden md:table-cell md:px-2 px-4 py-2 dark:text-gray-300">
-        {albumName}
+        <a
+          href={albumUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400"
+        >
+          {albumName}
+        </a>
       </td>
       <td className="hidden md:table-cell md:px-2 px-4 py-2 dark:text-gray-300">
         {formattedDuration}
