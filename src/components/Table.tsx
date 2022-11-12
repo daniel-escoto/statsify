@@ -31,13 +31,13 @@ export default function Table(props: Props) {
   }
 
   return (
-    <>
+    <div className="w-full max-w-4xl">
       {filteredResultsAreSongs ? (
         <SongTable songs={filteredResults as Song[]} />
       ) : (
         // <ArtistTable artists={filteredResults as Artist[]} />
         <>Artist Table</>
       )}
-    </>
+    </div>
   );
 }

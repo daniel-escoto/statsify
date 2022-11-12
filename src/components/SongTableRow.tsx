@@ -18,38 +18,37 @@ export default function SongTableRow({
     .replace(/^0+/, "");
 
   return (
-    // padding between rows
-    <tr className="border-b border-gray-200 hover:bg-gray-100">
-      <td className="text-center md:px-2">{rank}</td>
-      <td className="flex items-center md:px-2">
-        <img
-          src={albumImage}
-          alt={albumName}
-          className="w-10 h-10 mr-2 rounded"
-        />
-        <div className="truncate">
-          <a
-            href={songUrl}
-            className="text-gray-900 font-medium truncate hover:underline"
-          >
-            {song.name}
-          </a>
-          <div className="text-gray-500 truncate ">
+    <tr className="border-b border-gray-200">
+      <td className="md:px-2 px-4 py-2">{rank}</td>
+      <td className="md:px-2 px-4 py-2">
+        <div className="flex flex-row items-center justify-start space-x-4">
+          <img
+            src={albumImage}
+            alt="Album Cover"
+            className="w-12 h-12 rounded"
+          />
+          <div className="flex flex-col items-start justify-center">
             <a
-              className="hover:underline"
-              href={song.artists[0].external_urls.spotify}
+              href={songUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="font-bold text-gray-700 hover:text-red-700"
             >
-              {song.artists[0].name}
+              {song.name}
+            </a>
+            <a
+              href={albumUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-500 hover:text-red-500"
+            >
+              {albumName}
             </a>
           </div>
         </div>
       </td>
-      <td className="hidden md:table-cell text-left">
-        <a href={albumUrl} className="text-gray-500 hover:underline">
-          {albumName}
-        </a>
-      </td>
-      <td className="text-right text-gray-400 md:px-2 pr-2">
+      <td className="hidden md:table-cell md:px-2 px-4 py-2">{albumName}</td>
+      <td className="hidden md:table-cell md:px-2 px-4 py-2">
         {formattedDuration}
       </td>
     </tr>
