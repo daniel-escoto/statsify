@@ -30,6 +30,13 @@ export interface Artist {
   external_urls: {
     spotify: string;
   };
+  popularity: number;
+  followers: {
+    href: null;
+    total: number;
+  };
+  genres: string[];
+  images: Image[];
 }
 
 export interface Image {

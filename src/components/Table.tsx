@@ -1,9 +1,11 @@
+import ArtistTable from "./ArtistTable";
 import {
   TopTracksAndArtists,
   SearchOptions,
   TimeOptions,
   filterTopTracksAndArtists,
   Song,
+  Artist,
 } from "./Interfaces";
 import SongTable from "./SongTable";
 import Spinner from "./Spinner";
@@ -35,8 +37,7 @@ export default function Table(props: Props) {
       {filteredResultsAreSongs ? (
         <SongTable songs={filteredResults as Song[]} />
       ) : (
-        // <ArtistTable artists={filteredResults as Artist[]} />
-        <>Artist Table</>
+        <ArtistTable artists={filteredResults as Artist[]} />
       )}
     </div>
   );
