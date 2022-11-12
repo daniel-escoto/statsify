@@ -10,8 +10,8 @@ export default function ArtistTableRow({
 }) {
   //   show rank, image, name, top 3 genres, popularity
   return (
-    <tr className="border-b border-gray-200">
-      <td className="md:px-2 px-4 py-2">{rank}</td>
+    <tr className="border-b border-gray-200 dark:border-gray-700">
+      <td className="md:px-2 px-4 py-2 dark:text-gray-300">{rank}</td>
       <td className="md:px-2 px-4 py-2">
         <div className="flex flex-row items-center justify-start space-x-4">
           <img
@@ -24,7 +24,7 @@ export default function ArtistTableRow({
               href={artist.external_urls.spotify}
               target="_blank"
               rel="noreferrer"
-              className="font-bold text-gray-700 hover:text-red-700"
+              className="font-bold text-gray-700 hover:text-red-700 dark:text-gray-300 dark:hover:text-red-300"
             >
               {artist.name}
             </a>
@@ -36,7 +36,7 @@ export default function ArtistTableRow({
           <GenreTag genre={genre} key={genre} />
         ))}
       </td>
-      <td className="hidden md:table-cell md:px-2 px-4 py-2">
+      <td className="hidden md:table-cell md:px-2 px-4 py-2 dark:text-gray-300">
         {artist.popularity}
       </td>
     </tr>

@@ -21,8 +21,8 @@ export default function Toggles({
           <button
             className={`${
               currentSearchOption === SearchOptions.TRACK
-                ? "bg-red-700 text-white"
-                : "bg-gray-200 text-gray-700"
+                ? "bg-red-700 text-white dark:bg-red-600 dark:text-gray-900"
+                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
             } font-bold py-2 px-4 rounded-full`}
             onClick={() => setSearchOption(SearchOptions.TRACK)}
           >
@@ -31,9 +31,9 @@ export default function Toggles({
           <button
             className={`${
               currentSearchOption === SearchOptions.ARTIST
-                ? "bg-red-700 text-white"
-                : "bg-gray-200 text-gray-700"
-            } font-bold py-2 px-4 rounded-full`}
+                ? "bg-red-700 text-white dark:bg-red-600 dark:text-gray-900"
+                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
+            } font-bold py-2 px-4 rounded-full dark:bg-gray-700 dark:text-gray-200`}
             onClick={() => setSearchOption(SearchOptions.ARTIST)}
           >
             Artists
@@ -43,8 +43,8 @@ export default function Toggles({
           <button
             className={`${
               currentTimeOption === TimeOptions.SHORT_TERM
-                ? "bg-red-700 text-white"
-                : "bg-gray-200 text-gray-700"
+                ? "bg-red-700 text-white dark:bg-red-600 dark:text-gray-900"
+                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
             } font-bold py-2 px-4 rounded-full`}
             onClick={() => setTimeOption(TimeOptions.SHORT_TERM)}
           >
@@ -53,8 +53,8 @@ export default function Toggles({
           <button
             className={`${
               currentTimeOption === TimeOptions.MEDIUM_TERM
-                ? "bg-red-700 text-white"
-                : "bg-gray-200 text-gray-700"
+                ? "bg-red-700 text-white dark:bg-red-600 dark:text-gray-900"
+                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
             } font-bold py-2 px-4 rounded-full`}
             onClick={() => setTimeOption(TimeOptions.MEDIUM_TERM)}
           >
@@ -63,8 +63,8 @@ export default function Toggles({
           <button
             className={`${
               currentTimeOption === TimeOptions.LONG_TERM
-                ? "bg-red-700 text-white"
-                : "bg-gray-200 text-gray-700"
+                ? "bg-red-700 text-white dark:bg-red-600 dark:text-gray-900"
+                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
             } font-bold py-2 px-4 rounded-full`}
             onClick={() => setTimeOption(TimeOptions.LONG_TERM)}
           >
