@@ -1,4 +1,5 @@
 import { Artist } from "./Interfaces";
+import GenreTag from "./GenreTag";
 
 export default function ArtistTableRow({
   artist,
@@ -7,8 +8,6 @@ export default function ArtistTableRow({
   artist: Artist;
   rank: number;
 }) {
-  const topGenres = artist.genres.slice(0, 3).join(", ");
-
   //   show rank, image, name, top 3 genres, popularity
   return (
     <tr className="border-b border-gray-200">
@@ -32,7 +31,11 @@ export default function ArtistTableRow({
           </div>
         </div>
       </td>
-      <td className="hidden md:table-cell md:px-2 px-4 py-2">{topGenres}</td>
+      <td className="hidden md:table-cell md:px-2 px-4 py-2">
+        {artist.genres.slice(0, 3).map((genre) => (
+          <GenreTag genre={genre} key={genre} />
+        ))}
+      </td>
       <td className="hidden md:table-cell md:px-2 px-4 py-2">
         {artist.popularity}
       </td>
