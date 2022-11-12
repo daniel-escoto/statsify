@@ -12,8 +12,8 @@ export default function Toggles({
   setTimeOption: (timeOption: TimeOptions) => void;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center w-full space-y-10">
-      <div className="flex flex-col md:flex-row items-center justify-center w-full space-y-4 md:space-y-0 md:space-x-4">
+    <div className="flex flex-col items-center justify-center w-full space-y-10 max-w-4xl">
+      <div className="flex flex-col md:flex-row items-center justify-between w-full space-y-4 md:space-y-0 md:space-x-4">
         <div className="flex flex-row items-center justify-center space-x-2">
           <button
             className={`${
