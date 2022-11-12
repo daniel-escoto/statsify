@@ -53,7 +53,7 @@ function App() {
   return (
     <div className="flex flex-col h-screen">
       <NavBar handleLogOut={logOut} token={state.token} />
-      <div className="flex-grow pt-10 dark:bg-gray-900">
+      <div className="flex-grow py-10 dark:bg-gray-900">
         <>
           {state.token ? (
             <div className="flex flex-col items-center justify-center w-full space-y-10">
