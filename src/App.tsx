@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { getToken, getTopTracksAndArtists, loginUrl } from "./utilities/Api";
 
 import {
@@ -101,7 +101,7 @@ function App() {
   return (
     <div className="flex flex-col h-screen">
       <NavBar handleLogOut={logOut} token={state.token} />
-      <div className="flex-grow py-10 dark:bg-gray-900">
+      <div className="flex-grow py-10 bg-background dark:bg-neutral-dark">
         <>
           {state.token ? (
             <div className="flex flex-col items-center justify-center w-full space-y-10">
@@ -120,15 +120,15 @@ function App() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full">
-              <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-100">
+              <h1 className="text-5xl font-bold text-foreground dark:text-neutral-light">
                 Statsify
               </h1>
-              <p className="text-2xl text-gray-700 dark:text-gray-300">
+              <p className="text-2xl text-neutral dark:text-neutral-light">
                 Get all your Spotify stats in one place.
               </p>
               <a
                 href={loginUrl}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 dark:bg-green-600 dark:hover:bg-green-700"
+                className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded mt-4 dark:bg-secondary dark:hover:bg-secondary-dark"
               >
                 Sign in with Spotify
               </a>
