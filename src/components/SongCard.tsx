@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { Song } from "./Interfaces";
 
@@ -16,29 +16,28 @@ function SongCard({ song, rank }: { song: Song; rank: number }) {
         boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.3)",
       }}
       className="flex flex-col relative rounded-lg overflow-hidden shadow-lg group"
+      transition={{ type: "spring", stiffness: 150, damping: 20 }}
     >
       {/* Album Art */}
-      <div className="relative">
-        <motion.img
+      <motion.div className="relative" whileHover={{ scale: 1.1 }}>
+        <img
           src={song.album.images[0]?.url}
           alt={`${song.name} album art`}
           className="h-36 w-full object-cover"
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.3 }}
+          loading="lazy"
         />
         <motion.div
           className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
           initial={{ opacity: 0 }}
           whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
         >
           <p className="text-white text-xl font-bold">#{rank}</p>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Info Section */}
       <div className="relative h-24 bg-gray-900 text-white overflow-hidden">
-        {/* Backdrop */}
         <motion.img
           src={song.album.images[0]?.url}
           alt="Album Backdrop"
@@ -83,4 +82,4 @@ function SongCard({ song, rank }: { song: Song; rank: number }) {
   );
 }
 
-export default SongCard;
+export default memo(SongCard);
