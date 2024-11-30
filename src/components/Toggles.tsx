@@ -1,5 +1,5 @@
 import { SearchOptions, TimeOptions } from "./Interfaces";
-import Button from "./Button";
+import ToggleContainer from "./ToggleContainer";
 
 export default function Toggles({
   currentSearchOption,
@@ -14,43 +14,24 @@ export default function Toggles({
 }) {
   return (
     <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-5xl px-4 py-4 space-y-4 md:space-y-0">
-      {/* Search Options (Songs / Artists) */}
-      <div className="flex gap-4">
-        <Button
-          isActive={currentSearchOption === SearchOptions.TRACK}
-          onClick={() => setSearchOption(SearchOptions.TRACK)}
-        >
-          Songs
-        </Button>
-        <Button
-          isActive={currentSearchOption === SearchOptions.ARTIST}
-          onClick={() => setSearchOption(SearchOptions.ARTIST)}
-        >
-          Artists
-        </Button>
-      </div>
+      <ToggleContainer
+        options={[
+          { label: "Songs", value: SearchOptions.TRACK },
+          { label: "Artists", value: SearchOptions.ARTIST },
+        ]}
+        activeValue={currentSearchOption}
+        onChange={setSearchOption}
+      />
 
-      {/* Time Options (Past Month, Past 6 Months, All Time) */}
-      <div className="flex gap-4">
-        <Button
-          isActive={currentTimeOption === TimeOptions.SHORT_TERM}
-          onClick={() => setTimeOption(TimeOptions.SHORT_TERM)}
-        >
-          Past Month
-        </Button>
-        <Button
-          isActive={currentTimeOption === TimeOptions.MEDIUM_TERM}
-          onClick={() => setTimeOption(TimeOptions.MEDIUM_TERM)}
-        >
-          Past 6 Months
-        </Button>
-        <Button
-          isActive={currentTimeOption === TimeOptions.LONG_TERM}
-          onClick={() => setTimeOption(TimeOptions.LONG_TERM)}
-        >
-          All Time
-        </Button>
-      </div>
+      <ToggleContainer
+        options={[
+          { label: "Past Month", value: TimeOptions.SHORT_TERM },
+          { label: "Past 6 Months", value: TimeOptions.MEDIUM_TERM },
+          { label: "All Time", value: TimeOptions.LONG_TERM },
+        ]}
+        activeValue={currentTimeOption}
+        onChange={setTimeOption}
+      />
     </div>
   );
 }
