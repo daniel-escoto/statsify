@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { getToken, getTopTracksAndArtists, loginUrl } from "./utilities/Api";
 
 import {
@@ -11,42 +11,71 @@ import NavBar from "./components/NavBar";
 import Table from "./components/Table";
 import Toggles from "./components/Toggles";
 
-interface State {
+type State = {
   token: string;
   topTracksAndArtists: TopTracksAndArtists | null;
   isLoading: boolean;
   currentSearchOption: SearchOptions;
   currentTimeOption: TimeOptions;
+};
+
+type Action =
+  | { type: "SET_TOKEN"; payload: string }
+  | { type: "SET_TRACKS_AND_ARTISTS"; payload: TopTracksAndArtists }
+  | { type: "SET_SEARCH_OPTION"; payload: SearchOptions }
+  | { type: "SET_TIME_OPTION"; payload: TimeOptions }
+  | { type: "RESET" };
+
+const initialState: State = {
+  token: "",
+  topTracksAndArtists: null,
+  isLoading: true,
+  currentSearchOption: SearchOptions.TRACK,
+  currentTimeOption: TimeOptions.SHORT_TERM,
+};
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "SET_TOKEN":
+      return { ...state, token: action.payload };
+    case "SET_TRACKS_AND_ARTISTS":
+      return {
+        ...state,
+        topTracksAndArtists: action.payload,
+        isLoading: false,
+      };
+    case "SET_SEARCH_OPTION":
+      return { ...state, currentSearchOption: action.payload };
+    case "SET_TIME_OPTION":
+      return { ...state, currentTimeOption: action.payload };
+    case "RESET":
+      return initialState;
+    default:
+      return state;
+  }
 }
 
 function App() {
-  const [state, setState] = useState<State>({
-    token: "",
-    topTracksAndArtists: null,
-    isLoading: true,
-    currentSearchOption: SearchOptions.TRACK,
-    currentTimeOption: TimeOptions.SHORT_TERM,
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const token = getToken();
-
     if (token) {
-      setState({ ...state, token });
+      dispatch({ type: "SET_TOKEN", payload: token });
     }
   }, []);
 
   useEffect(() => {
     if (state.token) {
-      getTopTracksAndArtists(state.token).then((topTracksAndArtists) => {
-        setState({ ...state, topTracksAndArtists, isLoading: false });
+      getTopTracksAndArtists(state.token).then((data) => {
+        dispatch({ type: "SET_TRACKS_AND_ARTISTS", payload: data });
       });
     }
   }, [state.token]);
 
   const logOut = () => {
     window.localStorage.removeItem("token");
-    setState({ ...state, token: "" });
+    dispatch({ type: "RESET" });
     window.location.reload();
   };
 
@@ -61,10 +90,10 @@ function App() {
                 currentSearchOption={state.currentSearchOption}
                 currentTimeOption={state.currentTimeOption}
                 setSearchOption={(searchOption) =>
-                  setState({ ...state, currentSearchOption: searchOption })
+                  dispatch({ type: "SET_SEARCH_OPTION", payload: searchOption })
                 }
                 setTimeOption={(timeOption) =>
-                  setState({ ...state, currentTimeOption: timeOption })
+                  dispatch({ type: "SET_TIME_OPTION", payload: timeOption })
                 }
               />
               <Table
