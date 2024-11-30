@@ -17,6 +17,7 @@ type State = {
   isLoading: boolean;
   currentSearchOption: SearchOptions;
   currentTimeOption: TimeOptions;
+  error: string | null;
 };
 
 type Action =
@@ -24,6 +25,7 @@ type Action =
   | { type: "SET_TRACKS_AND_ARTISTS"; payload: TopTracksAndArtists }
   | { type: "SET_SEARCH_OPTION"; payload: SearchOptions }
   | { type: "SET_TIME_OPTION"; payload: TimeOptions }
+  | { type: "SET_ERROR"; payload: string | null }
   | { type: "RESET" };
 
 const initialState: State = {
@@ -32,6 +34,7 @@ const initialState: State = {
   isLoading: true,
   currentSearchOption: SearchOptions.TRACK,
   currentTimeOption: TimeOptions.SHORT_TERM,
+  error: null,
 };
 
 function reducer(state: State, action: Action): State {
@@ -48,8 +51,11 @@ function reducer(state: State, action: Action): State {
       return { ...state, currentSearchOption: action.payload };
     case "SET_TIME_OPTION":
       return { ...state, currentTimeOption: action.payload };
+    case "SET_ERROR":
+      return { ...state, error: action.payload };
     case "RESET":
       return initialState;
+
     default:
       return state;
   }
@@ -67,9 +73,14 @@ function App() {
 
   useEffect(() => {
     if (state.token) {
-      getTopTracksAndArtists(state.token).then((data) => {
-        dispatch({ type: "SET_TRACKS_AND_ARTISTS", payload: data });
-      });
+      getTopTracksAndArtists(state.token)
+        .then((data) => {
+          dispatch({ type: "SET_TRACKS_AND_ARTISTS", payload: data });
+        })
+        .catch((error) => {
+          console.error("Error fetching tracks and artists:", error);
+          dispatch({ type: "SET_ERROR", payload: "Failed to fetch data" });
+        });
     }
   }, [state.token]);
 
@@ -77,6 +88,14 @@ function App() {
     window.localStorage.removeItem("token");
     dispatch({ type: "RESET" });
     window.location.reload();
+  };
+
+  const handleSetSearchOption = (searchOption: SearchOptions) => {
+    dispatch({ type: "SET_SEARCH_OPTION", payload: searchOption });
+  };
+
+  const handleSetTimeOption = (timeOption: TimeOptions) => {
+    dispatch({ type: "SET_TIME_OPTION", payload: timeOption });
   };
 
   return (
@@ -89,12 +108,8 @@ function App() {
               <Toggles
                 currentSearchOption={state.currentSearchOption}
                 currentTimeOption={state.currentTimeOption}
-                setSearchOption={(searchOption) =>
-                  dispatch({ type: "SET_SEARCH_OPTION", payload: searchOption })
-                }
-                setTimeOption={(timeOption) =>
-                  dispatch({ type: "SET_TIME_OPTION", payload: timeOption })
-                }
+                setSearchOption={handleSetSearchOption}
+                setTimeOption={handleSetTimeOption}
               />
               <Table
                 isLoading={state.isLoading}
