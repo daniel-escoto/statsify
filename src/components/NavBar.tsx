@@ -21,14 +21,14 @@ export default function NavBar({ token, handleLogOut }: NavBarProps) {
               <button
                 type="button"
                 onClick={handleLogOut}
-                className="bg-secondary text-background px-4 py-2 rounded-md text-sm font-medium hover:bg-secondary-dark transition"
+                className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
               >
                 Log Out
               </button>
             ) : (
               <a
                 href={loginUrl}
-                className="bg-secondary text-background px-4 py-2 rounded-md text-sm font-medium hover:bg-secondary-dark transition"
+                className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
                 Log In
               </a>

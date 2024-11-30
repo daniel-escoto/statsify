@@ -13,9 +13,9 @@ module.exports = {
           dark: "#1e3a8a", // Dark blue (active, focus)
         },
         secondary: {
-          light: "#fbbf24", // Light yellow (accents, highlights)
-          DEFAULT: "#f59e0b", // Default yellow (secondary buttons)
-          dark: "#d97706", // Dark yellow (warnings, active states)
+          light: "#c4b5fd", // Light purple (hover, highlights)
+          DEFAULT: "#8b5cf6", // Default purple (buttons, links)
+          dark: "#5b21b6", // Dark purple (active, focus)
         },
         neutral: {
           light: "#f3f4f6", // Light gray (backgrounds)
