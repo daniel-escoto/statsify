@@ -8,27 +8,45 @@ module.exports = {
       },
       colors: {
         primary: {
-          light: "#93c5fd", // Light blue
-          DEFAULT: "#3b82f6", // Default blue
-          dark: "#1e40af", // Dark blue
+          light: "#60a5fa", // Light blue (hover, highlights)
+          DEFAULT: "#2563eb", // Default blue (buttons, links)
+          dark: "#1e3a8a", // Dark blue (active, focus)
         },
         secondary: {
-          light: "#fcd34d", // Light yellow
-          DEFAULT: "#f59e0b", // Default yellow
-          dark: "#b45309", // Dark yellow
+          light: "#fbbf24", // Light yellow (accents, highlights)
+          DEFAULT: "#f59e0b", // Default yellow (secondary buttons)
+          dark: "#d97706", // Dark yellow (warnings, active states)
         },
         neutral: {
-          light: "#f9fafb", // Light gray
-          DEFAULT: "#e5e7eb", // Neutral gray
-          dark: "#374151", // Dark gray
+          light: "#f3f4f6", // Light gray (backgrounds)
+          DEFAULT: "#d1d5db", // Neutral gray (borders, inactive)
+          dark: "#4b5563", // Dark gray (text, icons in dark mode)
         },
         accent: {
-          light: "#6ee7b7", // Light green
-          DEFAULT: "#10b981", // Default green
-          dark: "#047857", // Dark green
+          light: "#34d399", // Light teal (success, accents)
+          DEFAULT: "#10b981", // Default teal (primary accent color)
+          dark: "#059669", // Dark teal (hover, focus)
         },
-        background: "#111827", // Dark background
-        foreground: "#f9fafb", // Light foreground
+        error: {
+          light: "#fca5a5", // Light red (error highlights)
+          DEFAULT: "#ef4444", // Default red (errors, destructive actions)
+          dark: "#991b1b", // Dark red (error focus states)
+        },
+        background: {
+          light: "#f9fafb", // Light background (default for light mode)
+          DEFAULT: "#1f2937", // Default dark background
+          dark: "#111827", // Very dark background (dark mode)
+        },
+        foreground: {
+          light: "#1f2937", // Dark text on light backgrounds
+          DEFAULT: "#f3f4f6", // Light text on dark backgrounds
+          dark: "#e5e7eb", // Subtle text in dark mode
+        },
+        highlight: {
+          light: "#93c5fd", // Light blue for hover states
+          DEFAULT: "#3b82f6", // Bright highlight (links, active states)
+          dark: "#1e40af", // Dark highlight for dark mode
+        },
       },
     },
   },
