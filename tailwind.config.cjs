@@ -14,17 +14,17 @@ module.exports = {
           dark: "#7e22ce", // Dark purple (active, focus)
         },
         secondary: {
-          light: "#e9d5ff", // Pale purple (backgrounds, highlights)
+          light: "#f3e8ff", // Pale purple (backgrounds, highlights)
           DEFAULT: "#c084fc", // Light purple for secondary accents
           dark: "#9333ea", // Vibrant purple for focus states
         },
         neutral: {
-          light: "#faf9fc", // Bright white with a hint of purple-gray
-          DEFAULT: "#e4e1f0", // Subtle purple-gray for borders/inactive states
-          dark: "#6b7280", // Neutral gray for light mode text
+          light: "#f4f4f7", // Light gray with a subtle tint
+          DEFAULT: "#9ca3af", // Medium gray for text, borders
+          dark: "#4b5563", // Dark gray for strong contrast
         },
         accent: {
-          light: "#d1c7ff", // Light lavender-blue (success, accents)
+          light: "#c3bfff", // Light lavender-blue (success, accents)
           DEFAULT: "#8b5cf6", // Muted lavender accent
           dark: "#5b21b6", // Rich purple-blue accent for focus
         },
@@ -34,17 +34,17 @@ module.exports = {
           dark: "#b91c1c", // Dark red for focus states
         },
         background: {
-          light: "#fdfcff", // Crisp white with a lavender tint
+          light: "#ffffff", // True white for better clarity
           DEFAULT: "#faf5ff", // Subtle lavender-gray for light mode
           dark: "#1e1b29", // Unchanged dark mode
         },
         foreground: {
-          light: "#292524", // Rich black for light mode text
-          DEFAULT: "#e4dfff", // Light gray-lavender for dark mode text
+          light: "#333333", // Dark gray-black for text
+          DEFAULT: "#292524", // Rich black for light mode text
           dark: "#d1cfe4", // Subtle text in dark mode
         },
         highlight: {
-          light: "#e0d7ff", // Light purple for hover states
+          light: "#e8dffe", // Light purple for hover states
           DEFAULT: "#a855f7", // Matching primary highlight color
           dark: "#7e22ce", // Darker purple for hover states in dark mode
         },
