@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Table from "./components/Table";
 import Toggles from "./components/Toggles";
 import { loginUrl } from "./utilities/Api";
+import SignInWithSpotify from "./components/SignInWithSpotify";
 
 function App() {
   const { state, dispatch, logOut } = useSpotifyApi();
@@ -37,20 +38,7 @@ function App() {
             />
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center h-full">
-            <h1 className="text-5xl font-bold text-foreground dark:text-neutral-light">
-              Statsify
-            </h1>
-            <p className="text-2xl text-neutral dark:text-neutral-light">
-              Get all your Spotify stats in one place.
-            </p>
-            <a
-              href={loginUrl}
-              className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded mt-4 dark:bg-secondary dark:hover:bg-secondary-dark"
-            >
-              Sign in with Spotify
-            </a>
-          </div>
+          <SignInWithSpotify />
         )}
       </div>
     </div>

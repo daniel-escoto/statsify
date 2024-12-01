@@ -36,8 +36,8 @@ export default function SongCards({ songs }: { songs: Song[] }) {
 function AnimatedSongCard({ song, rank }: { song: Song; rank: number }) {
   const controls = useAnimation();
   const [ref, inView] = useInView({
-    threshold: 0.1, // Trigger animation when 10% of the card is in view
-    triggerOnce: true, // Animate only once
+    threshold: 0.1,
+    triggerOnce: true,
   });
 
   useEffect(() => {

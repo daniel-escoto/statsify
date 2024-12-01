@@ -8,7 +8,6 @@ export default function ArtistTableRow({
   artist: Artist;
   rank: number;
 }) {
-  //   show rank, image, name, top 3 genres, popularity
   return (
     <tr className="border-b border-gray-200 dark:border-gray-700">
       <td className="md:px-2 px-4 py-2 dark:text-gray-300">{rank}</td>

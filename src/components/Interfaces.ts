@@ -73,7 +73,6 @@ export enum SearchOptions {
   ARTIST = "artist",
 }
 
-// given toptracksandartists, a time option, and a search option, return the filtered list
 export function filterTopTracksAndArtists(
   topTracksAndArtists: TopTracksAndArtists,
   timeOption: TimeOptions,

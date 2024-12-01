@@ -19,7 +19,6 @@ export default function SongTableRow({
 
   return (
     <tr className="border-b border-gray-200 dark:border-gray-700">
-      {/* <td className="md:px-2 px-4 py-2">{rank}</td> */}
       <td className="md:px-2 px-4 py-2 dark:text-gray-300">{rank}</td>
       <td className="md:px-2 px-4 py-2">
         <div className="flex flex-row items-center justify-start space-x-4">
@@ -43,7 +42,6 @@ export default function SongTableRow({
               rel="noreferrer"
               className="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400"
             >
-              {/* artist name */}
               {song.artists[0].name}
             </a>
           </div>

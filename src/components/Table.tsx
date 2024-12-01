@@ -8,7 +8,6 @@ import {
   Artist,
 } from "./Interfaces";
 import SongCards from "./SongCards";
-import SongTable from "./SongTable";
 import Spinner from "./Spinner";
 
 interface Props {

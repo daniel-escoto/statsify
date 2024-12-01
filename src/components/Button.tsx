@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 
 interface ButtonProps {
-  isActive: boolean; // Determines the active state
-  onClick: () => void; // Click handler
-  children: React.ReactNode; // Button label
+  isActive: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
 }
 
 export default function Button({ isActive, onClick, children }: ButtonProps) {
