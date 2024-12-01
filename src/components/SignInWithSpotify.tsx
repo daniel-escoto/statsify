@@ -15,6 +15,13 @@ export default function SignInWithSpotify() {
       >
         Sign in with Spotify
       </a>
+      <div className="mt-6 max-w-lg text-center text-sm text-neutral-dark dark:text-neutral-light">
+        <p>
+          Experiencing issues with Safari? Please disable private browsing mode
+          or try using another browser like Chrome or Firefox for a smoother
+          experience.
+        </p>
+      </div>
     </div>
   );
 }
