@@ -7,12 +7,14 @@ interface NavBarProps {
 
 export default function NavBar({ token, handleLogOut }: NavBarProps) {
   return (
-    <nav className="bg-primary">
+    <nav className="bg-primary dark:bg-primary-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Title */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-foreground">Statsify</h1>
+            <h1 className="text-2xl font-bold text-foreground dark:text-foreground-dark">
+              Statsify
+            </h1>
           </div>
 
           {/* Login/Logout Button */}
@@ -21,14 +23,14 @@ export default function NavBar({ token, handleLogOut }: NavBarProps) {
               <button
                 type="button"
                 onClick={handleLogOut}
-                className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                className="bg-secondary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-secondary-dark transition focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
               >
                 Log Out
               </button>
             ) : (
               <a
                 href={loginUrl}
-                className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                className="bg-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-accent-dark transition focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
               >
                 Log In
               </a>

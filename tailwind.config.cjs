@@ -8,44 +8,44 @@ module.exports = {
       },
       colors: {
         primary: {
-          light: "#60a5fa", // Light blue (hover, highlights)
-          DEFAULT: "#2563eb", // Default blue (buttons, links)
-          dark: "#1e3a8a", // Dark blue (active, focus)
+          light: "#d8b4fe", // Light purple (hover, highlights)
+          DEFAULT: "#a855f7", // Default purple (buttons, links)
+          dark: "#7e22ce", // Dark purple (active, focus)
         },
         secondary: {
-          light: "#c4b5fd", // Light purple (hover, highlights)
-          DEFAULT: "#8b5cf6", // Default purple (buttons, links)
-          dark: "#5b21b6", // Dark purple (active, focus)
+          light: "#c084fc", // Light complementary purple (secondary accents)
+          DEFAULT: "#9333ea", // Default complementary purple
+          dark: "#6b21a8", // Dark complementary purple
         },
         neutral: {
-          light: "#f3f4f6", // Light gray (backgrounds)
-          DEFAULT: "#d1d5db", // Neutral gray (borders, inactive)
-          dark: "#4b5563", // Dark gray (text, icons in dark mode)
+          light: "#f3f0ff", // Very light purple-gray (backgrounds)
+          DEFAULT: "#e2e8f0", // Neutral gray (borders, inactive)
+          dark: "#475569", // Dark gray with a slight purple tint
         },
         accent: {
-          light: "#34d399", // Light teal (success, accents)
-          DEFAULT: "#10b981", // Default teal (primary accent color)
-          dark: "#059669", // Dark teal (hover, focus)
+          light: "#a5b4fc", // Light blue-lavender (success, accents)
+          DEFAULT: "#6366f1", // Default blue-lavender (primary accents)
+          dark: "#4c51bf", // Dark blue-lavender (hover, focus)
         },
         error: {
-          light: "#fca5a5", // Light red (error highlights)
-          DEFAULT: "#ef4444", // Default red (errors, destructive actions)
-          dark: "#991b1b", // Dark red (error focus states)
+          light: "#fed7e2", // Light pink-red (error highlights)
+          DEFAULT: "#f43f5e", // Default pink-red (errors, destructive actions)
+          dark: "#9f1239", // Dark pink-red (error focus states)
         },
         background: {
-          light: "#f9fafb", // Light background (default for light mode)
-          DEFAULT: "#1f2937", // Default dark background
-          dark: "#111827", // Very dark background (dark mode)
+          light: "#f7f3ff", // Light purple-gray (default for light mode)
+          DEFAULT: "#1e1b29", // Default dark purple-gray
+          dark: "#16141f", // Very dark purple-gray (dark mode)
         },
         foreground: {
-          light: "#1f2937", // Dark text on light backgrounds
-          DEFAULT: "#f3f4f6", // Light text on dark backgrounds
-          dark: "#e5e7eb", // Subtle text in dark mode
+          light: "#1e1b29", // Dark text on light backgrounds
+          DEFAULT: "#e9e7ef", // Light text on dark backgrounds
+          dark: "#d1cfe4", // Subtle text in dark mode
         },
         highlight: {
-          light: "#93c5fd", // Light blue for hover states
-          DEFAULT: "#3b82f6", // Bright highlight (links, active states)
-          dark: "#1e40af", // Dark highlight for dark mode
+          light: "#c084fc", // Light purple for hover states
+          DEFAULT: "#9333ea", // Bright purple highlight (links, active states)
+          dark: "#6b21a8", // Dark purple highlight for dark mode
         },
       },
     },
