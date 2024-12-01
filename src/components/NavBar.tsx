@@ -1,4 +1,5 @@
 import { loginUrl } from "../utilities/Api";
+import DarkModeToggle from "./DarkModeToggle";
 
 interface NavBarProps {
   token: string;
@@ -17,6 +18,8 @@ export default function NavBar({ token, handleLogOut }: NavBarProps) {
           </div>
 
           <div className="flex items-center space-x-4">
+            <DarkModeToggle />
+
             {token ? (
               <button
                 type="button"
