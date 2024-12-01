@@ -47,7 +47,7 @@ function reducer(state: State, action: Action): State {
     case "SET_TIME_OPTION":
       return { ...state, currentTimeOption: action.payload };
     case "SET_ERROR":
-      return { ...state, error: action.payload };
+      return { ...state, error: action.payload, isLoading: false };
     case "RESET":
       return initialState;
     default:
