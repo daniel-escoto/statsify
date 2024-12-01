@@ -20,10 +20,6 @@ export default function FilterBars({
   return (
     <div className="flex flex-col items-center w-full max-w-4xl space-y-4">
       {/* Selected Options Header */}
-      <div className="text-sm text-neutral-dark dark:text-neutral-light">
-        Viewing <strong>{currentSearchOption}</strong> from{" "}
-        <strong>{currentTimeOption}</strong>
-      </div>
 
       {/* Filter Dropdowns */}
       <div className="flex items-center justify-between bg-neutral-light dark:bg-neutral-dark p-4 rounded-lg w-full">
