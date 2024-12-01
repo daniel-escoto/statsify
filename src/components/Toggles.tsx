@@ -13,7 +13,7 @@ export default function Toggles({
   setTimeOption: (timeOption: TimeOptions) => void;
 }) {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-5xl px-4 py-4 space-y-4 md:space-y-0">
+    <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-4xl px-4 py-4 space-y-4 md:space-y-0">
       <ToggleContainer
         options={[
           { label: "Songs", value: SearchOptions.TRACK },
