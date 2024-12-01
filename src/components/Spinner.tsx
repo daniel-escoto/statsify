@@ -2,7 +2,7 @@ export default function Spinner() {
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <svg
-        className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900 dark:text-gray-200"
+        className="animate-spin h-8 w-8 text-primary dark:text-neutral-light"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -12,16 +12,18 @@ export default function Spinner() {
           cx="12"
           cy="12"
           r="10"
-          stroke="currentColor dark:text-gray-200"
+          stroke="currentColor"
           strokeWidth="4"
         ></circle>
         <path
           className="opacity-75"
-          fill="currentColor dark:text-gray-200"
-          d="M4 12a8 8 0 018-8v1a7 7 0 00-7 7h1z"
+          fill="currentColor"
+          d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 1.5a8.5 8.5 0 110 17 8.5 8.5 0 010-17z"
         ></path>
       </svg>
-      <p className="text-gray-900">Loading...</p>
+      <p className="mt-4 text-primary dark:text-neutral-light text-sm font-semibold">
+        Loading...
+      </p>
     </div>
   );
 }
