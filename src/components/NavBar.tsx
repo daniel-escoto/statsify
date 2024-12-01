@@ -10,14 +10,12 @@ export default function NavBar({ token, handleLogOut }: NavBarProps) {
     <nav className="bg-primary dark:bg-primary-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Title */}
           <div className="flex items-center">
             <h1 className="text-2xl font-bold text-foreground dark:text-foreground-dark">
               Statsify
             </h1>
           </div>
 
-          {/* Login/Logout Button */}
           <div className="flex items-center space-x-4">
             {token ? (
               <button
