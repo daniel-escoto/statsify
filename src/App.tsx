@@ -7,6 +7,7 @@ import SignInWithSpotify from "./components/SignInWithSpotify";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import FilterBars from "./components/FilterBars";
 import ErrorComponent from "./components/ErrorComponent";
+import SegmentedSlider from "./components/SegmentedSlider";
 
 function App() {
   const { state, dispatch, logOut } = useSpotifyApi();
@@ -46,6 +47,7 @@ function App() {
             <ErrorComponent message={state.error} onRetry={logOut} />
           ) : state.token ? (
             <div className="flex flex-col items-center justify-center w-full space-y-10">
+              <SegmentedSlider />
               <FilterBars
                 currentSearchOption={
                   state.currentSearchOption === SearchOptions.TRACK
