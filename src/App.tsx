@@ -6,16 +6,35 @@ import Table from "./components/Table";
 import Toggles from "./components/Toggles";
 import SignInWithSpotify from "./components/SignInWithSpotify";
 import { DarkModeProvider } from "./context/DarkModeContext";
+import FilterBars from "./components/FilterBars";
 
 function App() {
   const { state, dispatch, logOut } = useSpotifyApi();
 
-  const handleSetSearchOption = (searchOption: SearchOptions) => {
-    dispatch({ type: "SET_SEARCH_OPTION", payload: searchOption });
+  const handleSetSearchOption = (searchOption: string) => {
+    dispatch({
+      type: "SET_SEARCH_OPTION",
+      payload:
+        searchOption === "Songs" ? SearchOptions.TRACK : SearchOptions.ARTIST,
+    });
   };
 
-  const handleSetTimeOption = (timeOption: TimeOptions) => {
-    dispatch({ type: "SET_TIME_OPTION", payload: timeOption });
+  const handleSetTimeOption = (timeOption: string) => {
+    let timeOptionEnum;
+    switch (timeOption) {
+      case "Past Month":
+        timeOptionEnum = TimeOptions.SHORT_TERM;
+        break;
+      case "Past 6 Months":
+        timeOptionEnum = TimeOptions.MEDIUM_TERM;
+        break;
+      case "All Time":
+        timeOptionEnum = TimeOptions.LONG_TERM;
+        break;
+      default:
+        timeOptionEnum = TimeOptions.SHORT_TERM;
+    }
+    dispatch({ type: "SET_TIME_OPTION", payload: timeOptionEnum });
   };
 
   return (
@@ -40,9 +59,19 @@ function App() {
             </div>
           ) : state.token ? (
             <div className="flex flex-col items-center justify-center w-full space-y-10">
-              <Toggles
-                currentSearchOption={state.currentSearchOption}
-                currentTimeOption={state.currentTimeOption}
+              <FilterBars
+                currentSearchOption={
+                  state.currentSearchOption === SearchOptions.TRACK
+                    ? "Songs"
+                    : "Artists"
+                }
+                currentTimeOption={
+                  state.currentTimeOption === TimeOptions.SHORT_TERM
+                    ? "Past Month"
+                    : state.currentTimeOption === TimeOptions.MEDIUM_TERM
+                    ? "Past 6 Months"
+                    : "All Time"
+                }
                 setSearchOption={handleSetSearchOption}
                 setTimeOption={handleSetTimeOption}
               />
