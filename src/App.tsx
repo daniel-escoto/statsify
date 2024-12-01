@@ -4,7 +4,6 @@ import { SearchOptions, TimeOptions } from "./components/Interfaces";
 import NavBar from "./components/NavBar";
 import Table from "./components/Table";
 import Toggles from "./components/Toggles";
-import { loginUrl } from "./utilities/Api";
 import SignInWithSpotify from "./components/SignInWithSpotify";
 
 function App() {
