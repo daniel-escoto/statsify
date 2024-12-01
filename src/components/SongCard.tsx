@@ -18,7 +18,6 @@ function SongCard({ song, rank }: { song: Song; rank: number }) {
       className="flex flex-col relative rounded-lg overflow-hidden shadow-lg group"
       transition={{ type: "spring", stiffness: 150, damping: 20 }}
     >
-      {/* Album Art */}
       <motion.div className="relative" whileHover={{ scale: 1.1 }}>
         <img
           src={song.album.images[0]?.url}
