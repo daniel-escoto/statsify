@@ -1,3 +1,4 @@
+import ArtistCards from "./ArtistCards";
 import ArtistTable from "./ArtistTable";
 import {
   TopTracksAndArtists,
@@ -37,7 +38,7 @@ export default function Table(props: Props) {
       {filteredResultsAreSongs ? (
         <SongCards songs={filteredResults as Song[]} />
       ) : (
-        <ArtistTable artists={filteredResults as Artist[]} />
+        <ArtistCards artists={filteredResults as Artist[]} />
       )}
     </div>
   );
