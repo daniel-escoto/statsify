@@ -5,35 +5,35 @@ interface SegmentedSliderProps {
   options: string[];
   selected: string;
   onChange: (value: string) => void;
-  indicatorOffset?: number;
 }
 
 export default function SegmentedSlider({
   options,
   selected,
   onChange,
-  indicatorOffset = 0,
 }: SegmentedSliderProps) {
   const buttonRefs = useRef<HTMLButtonElement[]>([]);
-  const [indicatorWidth, setIndicatorWidth] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
   const [indicatorPosition, setIndicatorPosition] = useState(0);
 
   useEffect(() => {
     const selectedIndex = options.indexOf(selected);
-    const button = buttonRefs.current[selectedIndex];
-    if (button) {
-      setIndicatorWidth(button.offsetWidth);
-      setIndicatorPosition(button.offsetLeft + indicatorOffset);
-    }
-  }, [selected, options, indicatorOffset]);
+    const sectionWidth = sliderRef.current
+      ? sliderRef.current.offsetWidth / options.length
+      : 0;
+    setIndicatorPosition(selectedIndex * sectionWidth);
+  }, [selected, options]);
 
   return (
-    <div className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-800 rounded-lg py-2 max-w-md border border-gray-300 dark:border-gray-700 flex-wrap gap-2 md:flex-nowrap">
+    <div
+      ref={sliderRef}
+      className="relative flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg py-2 max-w-md border border-gray-300 dark:border-gray-700"
+    >
       {/* Sliding indicator */}
       <motion.div
         className="absolute top-0 bottom-0 bg-primary rounded-lg"
         style={{
-          width: indicatorWidth,
+          width: `${100 / options.length}%`,
         }}
         animate={{
           x: indicatorPosition,
@@ -51,7 +51,7 @@ export default function SegmentedSlider({
           key={option}
           ref={(el) => (buttonRefs.current[index] = el!)}
           onClick={() => onChange(option)}
-          className={`relative z-10 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+          className={`flex-1 text-center relative z-10 px-5 py-2 text-sm font-medium transition-colors duration-200 whitespace-nowrap ${
             selected === option
               ? "text-white"
               : "text-gray-800 dark:text-gray-300"

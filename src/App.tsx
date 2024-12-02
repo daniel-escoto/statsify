@@ -22,10 +22,10 @@ function App() {
   const handleSetTimeOption = (timeOption: string) => {
     let timeOptionEnum;
     switch (timeOption) {
-      case "Past Month":
+      case "1 Month":
         timeOptionEnum = TimeOptions.SHORT_TERM;
         break;
-      case "Past 6 Months":
+      case "6 Months":
         timeOptionEnum = TimeOptions.MEDIUM_TERM;
         break;
       case "All Time":
@@ -61,12 +61,12 @@ function App() {
 
                 <div className="w-[90%] max-w-xs md:w-auto">
                   <SegmentedSlider
-                    options={["Past Month", "Past 6 Months", "All Time"]}
+                    options={["1 Month", "6 Months", "All Time"]}
                     selected={
                       state.currentTimeOption === TimeOptions.SHORT_TERM
-                        ? "Past Month"
+                        ? "1 Month"
                         : state.currentTimeOption === TimeOptions.MEDIUM_TERM
-                        ? "Past 6 Months"
+                        ? "6 Months"
                         : "All Time"
                     }
                     onChange={handleSetTimeOption}
