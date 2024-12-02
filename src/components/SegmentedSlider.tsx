@@ -1,24 +1,31 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const options = ["Past Month", "Past 6 Months", "All Time"];
+interface SegmentedSliderProps {
+  options: string[];
+  selected: string;
+  onChange: (value: string) => void;
+  indicatorOffset?: number;
+}
 
-export default function SegmentedSlider() {
-  const [selected, setSelected] = useState("Past 6 Months");
+export default function SegmentedSlider({
+  options,
+  selected,
+  onChange,
+  indicatorOffset = -9,
+}: SegmentedSliderProps) {
   const buttonRefs = useRef<HTMLButtonElement[]>([]);
   const [indicatorWidth, setIndicatorWidth] = useState(0);
   const [indicatorPosition, setIndicatorPosition] = useState(0);
-
-  const INDICATOR_OFFSET = -9;
 
   useEffect(() => {
     const selectedIndex = options.indexOf(selected);
     const button = buttonRefs.current[selectedIndex];
     if (button) {
       setIndicatorWidth(button.offsetWidth);
-      setIndicatorPosition(button.offsetLeft + INDICATOR_OFFSET);
+      setIndicatorPosition(button.offsetLeft + indicatorOffset);
     }
-  }, [selected]);
+  }, [selected, options, indicatorOffset]);
 
   return (
     <div className="relative flex items-center justify-between bg-neutral-light dark:bg-neutral-dark rounded-lg p-2 max-w-md">
@@ -37,12 +44,11 @@ export default function SegmentedSlider() {
         }}
       />
 
-      {/* Options */}
       {options.map((option, index) => (
         <button
           key={option}
           ref={(el) => (buttonRefs.current[index] = el!)}
-          onClick={() => setSelected(option)}
+          onClick={() => onChange(option)}
           className={`relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200 ${
             selected === option
               ? "text-white"

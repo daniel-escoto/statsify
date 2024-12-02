@@ -5,7 +5,6 @@ import NavBar from "./components/NavBar";
 import Table from "./components/Table";
 import SignInWithSpotify from "./components/SignInWithSpotify";
 import { DarkModeProvider } from "./context/DarkModeContext";
-import FilterBars from "./components/FilterBars";
 import ErrorComponent from "./components/ErrorComponent";
 import SegmentedSlider from "./components/SegmentedSlider";
 
@@ -46,24 +45,31 @@ function App() {
           {state.error ? (
             <ErrorComponent message={state.error} onRetry={logOut} />
           ) : state.token ? (
-            <div className="flex flex-col items-center justify-center w-full space-y-10">
-              <SegmentedSlider />
-              <FilterBars
-                currentSearchOption={
-                  state.currentSearchOption === SearchOptions.TRACK
-                    ? "Songs"
-                    : "Artists"
-                }
-                currentTimeOption={
-                  state.currentTimeOption === TimeOptions.SHORT_TERM
-                    ? "Past Month"
-                    : state.currentTimeOption === TimeOptions.MEDIUM_TERM
-                    ? "Past 6 Months"
-                    : "All Time"
-                }
-                setSearchOption={handleSetSearchOption}
-                setTimeOption={handleSetTimeOption}
-              />
+            <div className="flex flex-col items-center justify-center w-full space-y-6">
+              <div className="flex flex-col md:flex-row md:space-x-6 md:space-y-0 w-full max-w-4xl justify-between">
+                <SegmentedSlider
+                  options={["Songs", "Artists"]}
+                  selected={
+                    state.currentSearchOption === SearchOptions.TRACK
+                      ? "Songs"
+                      : "Artists"
+                  }
+                  onChange={handleSetSearchOption}
+                />
+
+                <SegmentedSlider
+                  options={["Past Month", "Past 6 Months", "All Time"]}
+                  selected={
+                    state.currentTimeOption === TimeOptions.SHORT_TERM
+                      ? "Past Month"
+                      : state.currentTimeOption === TimeOptions.MEDIUM_TERM
+                      ? "Past 6 Months"
+                      : "All Time"
+                  }
+                  onChange={handleSetTimeOption}
+                />
+              </div>
+
               <Table
                 isLoading={state.isLoading}
                 searchOptions={state.currentSearchOption}
