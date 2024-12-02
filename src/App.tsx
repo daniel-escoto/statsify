@@ -46,28 +46,32 @@ function App() {
             <ErrorComponent message={state.error} onRetry={logOut} />
           ) : state.token ? (
             <div className="flex flex-col items-center justify-center w-full space-y-6">
-              <div className="flex flex-col md:flex-row md:space-x-6 md:space-y-0 w-full max-w-4xl justify-between">
-                <SegmentedSlider
-                  options={["Songs", "Artists"]}
-                  selected={
-                    state.currentSearchOption === SearchOptions.TRACK
-                      ? "Songs"
-                      : "Artists"
-                  }
-                  onChange={handleSetSearchOption}
-                />
+              <div className="flex flex-col items-center w-full max-w-4xl space-y-4 md:flex-row md:justify-between md:space-x-4 md:space-y-0">
+                <div className="w-[90%] max-w-xs md:w-auto">
+                  <SegmentedSlider
+                    options={["Songs", "Artists"]}
+                    selected={
+                      state.currentSearchOption === SearchOptions.TRACK
+                        ? "Songs"
+                        : "Artists"
+                    }
+                    onChange={handleSetSearchOption}
+                  />
+                </div>
 
-                <SegmentedSlider
-                  options={["Past Month", "Past 6 Months", "All Time"]}
-                  selected={
-                    state.currentTimeOption === TimeOptions.SHORT_TERM
-                      ? "Past Month"
-                      : state.currentTimeOption === TimeOptions.MEDIUM_TERM
-                      ? "Past 6 Months"
-                      : "All Time"
-                  }
-                  onChange={handleSetTimeOption}
-                />
+                <div className="w-[90%] max-w-xs md:w-auto">
+                  <SegmentedSlider
+                    options={["Past Month", "Past 6 Months", "All Time"]}
+                    selected={
+                      state.currentTimeOption === TimeOptions.SHORT_TERM
+                        ? "Past Month"
+                        : state.currentTimeOption === TimeOptions.MEDIUM_TERM
+                        ? "Past 6 Months"
+                        : "All Time"
+                    }
+                    onChange={handleSetTimeOption}
+                  />
+                </div>
               </div>
 
               <Table
