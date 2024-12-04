@@ -9,7 +9,7 @@ interface CardProps {
     title: string;
     subtitle?: { id: string; name: string; url?: string; separator?: string }[];
     extraInfo?: string;
-    link: string; // Spotify URL
+    link: string;
   };
   rank: number;
 }
@@ -17,7 +17,7 @@ interface CardProps {
 export function Card({ data, rank }: CardProps) {
   return (
     <motion.a
-      href={data.link} // Link to Spotify
+      href={data.link}
       target="_blank"
       rel="noopener noreferrer"
       whileHover={{

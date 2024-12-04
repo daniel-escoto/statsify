@@ -9,7 +9,6 @@ export default function TickerText({ text }: TickerTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
-  // Check if the text is overflowing its container
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
