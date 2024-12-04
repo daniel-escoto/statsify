@@ -9,13 +9,17 @@ interface CardProps {
     title: string;
     subtitle?: { id: string; name: string; url?: string; separator?: string }[];
     extraInfo?: string;
+    link: string; // Spotify URL
   };
   rank: number;
 }
 
 export function Card({ data, rank }: CardProps) {
   return (
-    <motion.div
+    <motion.a
+      href={data.link} // Link to Spotify
+      target="_blank"
+      rel="noopener noreferrer"
       whileHover={{
         scale: 1.05,
         translateY: -5,
@@ -93,7 +97,7 @@ export function Card({ data, rank }: CardProps) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.a>
   );
 }
 

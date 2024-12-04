@@ -14,6 +14,7 @@ function ArtistCard({ artist, rank }: { artist: Artist; rank: number }) {
           separator: i > 0 ? " · " : "",
         })),
         extraInfo: `${artist.followers.total.toLocaleString()} Followers`,
+        link: artist.external_urls.spotify,
       }}
       rank={rank}
     />

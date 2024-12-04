@@ -20,6 +20,7 @@ function SongCard({ song, rank }: { song: Song; rank: number }) {
           separator: i > 0 ? " · " : "",
         })),
         extraInfo: formattedDuration,
+        link: song.external_urls.spotify,
       }}
       rank={rank}
     />
