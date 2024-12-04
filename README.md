@@ -9,7 +9,7 @@ A sleek web app showcasing your top tracks and artists on Spotify. Built to high
 
 ## Demo & Live Website
 
-- **[Video Demo](./statsify-demo.mov)**: A walkthrough of the app.
+- **[Video Demo](https://youtu.be/TTyIThvEW0s)**: A walkthrough of the app.
 - **[Live Website](https://statsify-nine.vercel.app/)**: Explore the app in action.
 
 ## Tech Stack
