@@ -11,18 +11,9 @@ function Rank({ rank }: RankProps) {
     3: "text-orange-500",
   };
 
-  const rankSizes: Record<number, string> = {
-    1: "text-xl",
-    2: "text-lg",
-    3: "text-md",
-  };
-
   const rankColor = rankColors[rank] || "text-white";
-  const rankSize = rankSizes[rank] || "text-sm";
 
-  return (
-    <span className={`font-semibold ${rankColor} ${rankSize}`}>#{rank}</span>
-  );
+  return <span className={`font-semibold ${rankColor} text-lg`}>#{rank}</span>;
 }
 
 export default memo(Rank);
