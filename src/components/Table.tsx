@@ -1,5 +1,4 @@
 import ArtistCards from "./ArtistCards";
-import ArtistTable from "./ArtistTable";
 import {
   TopTracksAndArtists,
   SearchOptions,
