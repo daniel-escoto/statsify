@@ -1,6 +1,7 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Rank from "./Rank";
+import TickerText from "./TickerText";
 
 interface CardProps {
   type: "song" | "artist";
@@ -14,20 +15,17 @@ interface CardProps {
 }
 
 export function Card({ type, data, rank }: CardProps) {
-  const rankColors: Record<number, string> = {
-    1: "text-yellow-400",
-    2: "text-gray-300",
-    3: "text-orange-500",
-  };
+  const [isOverflowing, setIsOverflowing] = useState(false);
 
-  const rankSizes: Record<number, string> = {
-    1: "text-xl",
-    2: "text-lg",
-    3: "text-md",
-  };
-
-  const rankColor = rankColors[rank] || "text-white";
-  const rankSize = rankSizes[rank] || "text-md";
+  // Check if the subtitle text is overflowing
+  useEffect(() => {
+    const subtitleElement = document.getElementById(`subtitle-${rank}`);
+    if (subtitleElement) {
+      setIsOverflowing(
+        subtitleElement.scrollWidth > subtitleElement.clientWidth
+      );
+    }
+  }, [data.subtitle, rank]);
 
   return (
     <motion.div
@@ -74,29 +72,35 @@ export function Card({ type, data, rank }: CardProps) {
             {data.title}
           </motion.p>
           {data.subtitle && (
-            <motion.p
-              className="text-xs truncate mt-1"
+            <motion.div
+              className="text-xs mt-1"
               whileHover={{ translateY: -2 }}
               transition={{ duration: 0.3 }}
             >
-              {data.subtitle.map((item) => (
-                <span key={item.id}>
-                  {item.separator}
-                  {item.url ? (
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      {item.name}
-                    </a>
-                  ) : (
-                    item.name
-                  )}
-                </span>
-              ))}
-            </motion.p>
+              <TickerText
+                text={
+                  <>
+                    {data.subtitle.map((item) => (
+                      <span key={item.id}>
+                        {item.separator}
+                        {item.url ? (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                          >
+                            {item.name}
+                          </a>
+                        ) : (
+                          item.name
+                        )}
+                      </span>
+                    ))}
+                  </>
+                }
+              />
+            </motion.div>
           )}
           <div className="flex justify-between mt-2 text-xs">
             {data.extraInfo && <span>{data.extraInfo}</span>}
