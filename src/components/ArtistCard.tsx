@@ -5,7 +5,6 @@ import { Artist } from "./Interfaces";
 function ArtistCard({ artist, rank }: { artist: Artist; rank: number }) {
   return (
     <Card
-      type="artist"
       data={{
         image: artist.images[0]?.url || "/placeholder.jpg",
         title: artist.name,

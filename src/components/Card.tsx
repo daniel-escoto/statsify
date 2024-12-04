@@ -1,10 +1,9 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
 import Rank from "./Rank";
 import TickerText from "./TickerText";
 
 interface CardProps {
-  type: "song" | "artist";
   data: {
     image: string;
     title: string;
@@ -14,19 +13,7 @@ interface CardProps {
   rank: number;
 }
 
-export function Card({ type, data, rank }: CardProps) {
-  const [isOverflowing, setIsOverflowing] = useState(false);
-
-  // Check if the subtitle text is overflowing
-  useEffect(() => {
-    const subtitleElement = document.getElementById(`subtitle-${rank}`);
-    if (subtitleElement) {
-      setIsOverflowing(
-        subtitleElement.scrollWidth > subtitleElement.clientWidth
-      );
-    }
-  }, [data.subtitle, rank]);
-
+export function Card({ data, rank }: CardProps) {
   return (
     <motion.div
       whileHover={{

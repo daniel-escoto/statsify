@@ -10,7 +10,6 @@ function SongCard({ song, rank }: { song: Song; rank: number }) {
 
   return (
     <Card
-      type="song"
       data={{
         image: song.album.images[0]?.url,
         title: song.name,
