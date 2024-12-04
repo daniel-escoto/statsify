@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
+import Rank from "./Rank";
 
 interface CardProps {
   type: "song" | "artist";
@@ -99,10 +100,7 @@ export function Card({ type, data, rank }: CardProps) {
           )}
           <div className="flex justify-between mt-2 text-xs">
             {data.extraInfo && <span>{data.extraInfo}</span>}
-            {/* Rank color and size */}
-            <span className={`font-semibold ${rankColor} ${rankSize}`}>
-              #{rank}
-            </span>
+            <Rank rank={rank} />
           </div>
         </div>
       </div>
