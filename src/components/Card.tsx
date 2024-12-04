@@ -45,13 +45,11 @@ export function Card({ type, data, rank }: CardProps) {
           loading="lazy"
         />
         <motion.div
-          className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          className="absolute inset-0 bg-opacity-50 flex items-center justify-center"
           initial={{ opacity: 0 }}
           whileHover={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
-        >
-          <p className="text-white text-xl font-bold">#{rank}</p>
-        </motion.div>
+        ></motion.div>
       </motion.div>
 
       {/* Info Section */}
