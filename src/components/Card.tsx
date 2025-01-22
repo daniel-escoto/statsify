@@ -60,12 +60,12 @@ export function Card({ data, rank }: CardProps) {
           >
             {data.title}
           </motion.p>
-          {data.subtitle && (
-            <motion.div
-              className="text-xs mt-1"
-              whileHover={{ translateY: -2 }}
-              transition={{ duration: 0.3 }}
-            >
+          <motion.div
+            className="text-xs mt-1 min-h-[20px]"
+            whileHover={{ translateY: -2 }}
+            transition={{ duration: 0.3 }}
+          >
+            {data.subtitle && data.subtitle.length > 0 ? (
               <TickerText
                 text={
                   <>
@@ -89,8 +89,10 @@ export function Card({ data, rank }: CardProps) {
                   </>
                 }
               />
-            </motion.div>
-          )}
+            ) : (
+              <span className="opacity-0">No subtitle</span>
+            )}
+          </motion.div>
           <div className="flex justify-between mt-2 text-xs">
             {data.extraInfo && <span>{data.extraInfo}</span>}
             <Rank rank={rank} />
