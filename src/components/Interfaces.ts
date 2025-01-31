@@ -119,6 +119,13 @@ export interface ListeningInsights {
   }[];
 }
 
+export interface CurrentlyPlaying {
+  is_playing: boolean;
+  item: Song | null;
+  progress_ms: number;
+  timestamp: number;
+}
+
 export function filterTopTracksAndArtists(
   topTracksAndArtists: TopTracksAndArtists,
   timeOption: TimeOptions,

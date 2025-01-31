@@ -6,6 +6,7 @@ import {
   TopTracks,
   TopTracksAndArtists,
   UserProfile,
+  CurrentlyPlaying,
 } from "../components/Interfaces";
 import {
   CLIENT_ID,
@@ -15,6 +16,7 @@ import {
   TOP_ARTISTS_ENDPOINT,
   RESPONSE_TYPE,
   USER_PROFILE_ENDPOINT,
+  CURRENTLY_PLAYING_ENDPOINT,
 } from "./Config";
 
 interface SpotifyApiResponse<T> {
@@ -103,11 +105,30 @@ export async function getUserProfile(token: string): Promise<UserProfile> {
   return await response.json();
 }
 
+export async function getCurrentlyPlaying(
+  token: string
+): Promise<CurrentlyPlaying | null> {
+  const response = await fetch(CURRENTLY_PLAYING_ENDPOINT, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (response.status === 204) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error(`Error fetching currently playing: ${response.statusText}`);
+  }
+
+  return await response.json();
+}
+
 const SCOPES = [
   "user-top-read",
   "user-read-private",
   "user-read-email",
   "user-read-recently-played",
+  "user-read-playback-state",
 ].join(" ");
 
 export const loginUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(

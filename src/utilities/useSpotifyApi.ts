@@ -1,16 +1,19 @@
-import { useEffect, useReducer, useCallback } from "react";
+import { useEffect, useReducer, useCallback, useState } from "react";
 import {
   getToken,
   getTopTracksAndArtists,
   getUserProfile,
   makeSpotifyRequest,
+  getCurrentlyPlaying,
 } from "./Api";
 import {
   SearchOptions,
   TimeOptions,
   TopTracksAndArtists,
   UserProfile,
+  CurrentlyPlaying,
 } from "../components/Interfaces";
+import { CURRENTLY_PLAYING_ENDPOINT } from "./Config";
 
 type State = {
   token: string;
@@ -20,6 +23,7 @@ type State = {
   currentSearchOption: SearchOptions;
   currentTimeOption: TimeOptions;
   error: string | null;
+  currentlyPlaying: CurrentlyPlaying | null;
 };
 
 type Action =
@@ -29,7 +33,8 @@ type Action =
   | { type: "SET_ERROR"; payload: string | null }
   | { type: "RESET" }
   | { type: "SET_SEARCH_OPTION"; payload: SearchOptions }
-  | { type: "SET_TIME_OPTION"; payload: TimeOptions };
+  | { type: "SET_TIME_OPTION"; payload: TimeOptions }
+  | { type: "SET_CURRENTLY_PLAYING"; payload: CurrentlyPlaying | null };
 
 const initialState: State = {
   token: "",
@@ -39,6 +44,7 @@ const initialState: State = {
   currentSearchOption: SearchOptions.TRACK,
   currentTimeOption: TimeOptions.SHORT_TERM,
   error: null,
+  currentlyPlaying: null,
 };
 
 function reducer(state: State, action: Action): State {
@@ -59,6 +65,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, currentTimeOption: action.payload };
     case "SET_ERROR":
       return { ...state, error: action.payload, isLoading: false };
+    case "SET_CURRENTLY_PLAYING":
+      return { ...state, currentlyPlaying: action.payload };
     case "RESET":
       return initialState;
     default:
@@ -94,6 +102,23 @@ export function useSpotifyApi() {
           dispatch({ type: "SET_ERROR", payload: "Failed to fetch data" });
         });
     }
+  }, [state.token]);
+
+  useEffect(() => {
+    if (!state.token) return;
+
+    const fetchCurrentTrack = async () => {
+      try {
+        const data = await getCurrentlyPlaying(state.token);
+        dispatch({ type: "SET_CURRENTLY_PLAYING", payload: data });
+      } catch (error) {
+        console.error("Error fetching current track:", error);
+        dispatch({ type: "SET_CURRENTLY_PLAYING", payload: null });
+      }
+    };
+
+    const interval = setInterval(fetchCurrentTrack, 10000);
+    return () => clearInterval(interval);
   }, [state.token]);
 
   const logOut = () => {
