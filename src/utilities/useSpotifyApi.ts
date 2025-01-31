@@ -1,5 +1,10 @@
-import { useEffect, useReducer } from "react";
-import { getToken, getTopTracksAndArtists, getUserProfile } from "./Api";
+import { useEffect, useReducer, useCallback } from "react";
+import {
+  getToken,
+  getTopTracksAndArtists,
+  getUserProfile,
+  makeSpotifyRequest,
+} from "./Api";
 import {
   SearchOptions,
   TimeOptions,
@@ -99,5 +104,15 @@ export function useSpotifyApi() {
     window.location.reload();
   };
 
-  return { state, dispatch, logOut };
+  const get = useCallback(
+    async (endpoint: string) => {
+      if (!state.token) {
+        throw new Error("No token available");
+      }
+      return makeSpotifyRequest(endpoint, state.token);
+    },
+    [state.token]
+  );
+
+  return { state, dispatch, logOut, get };
 }

@@ -96,6 +96,29 @@ export interface UserProfile {
   uri: string;
 }
 
+export interface RecentlyPlayedTrack {
+  track: Song;
+  played_at: string;
+  context: {
+    type: string;
+    href: string;
+    external_urls: {
+      spotify: string;
+    };
+    uri: string;
+  } | null;
+}
+
+export interface ListeningInsights {
+  mostActiveHour: string;
+  tracksPlayedToday: number;
+  totalListeningTime: number; // in milliseconds
+  hourlyActivity: {
+    hour: number;
+    count: number;
+  }[];
+}
+
 export function filterTopTracksAndArtists(
   topTracksAndArtists: TopTracksAndArtists,
   timeOption: TimeOptions,

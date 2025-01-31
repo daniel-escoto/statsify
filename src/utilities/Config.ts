@@ -7,6 +7,8 @@ export const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 export const TOP_TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks";
 export const TOP_ARTISTS_ENDPOINT = "https://api.spotify.com/v1/me/top/artists";
 export const USER_PROFILE_ENDPOINT = "https://api.spotify.com/v1/me";
+export const RECENTLY_PLAYED_ENDPOINT =
+  "https://api.spotify.com/v1/me/player/recently-played";
 
 // OAuth configuration
 export const RESPONSE_TYPE = "token";

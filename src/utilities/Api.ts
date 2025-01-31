@@ -69,30 +69,27 @@ export async function getTopTracksAndArtists(
   return { topTracks, topArtists };
 }
 
-export function getToken(): string {
+export const getToken = () => {
   const hash = window.location.hash;
-  let token = window.localStorage.getItem("token") || "";
+  let token = window.localStorage.getItem("token");
 
-  // Extract token from URL hash if present
   if (!token && hash) {
     const extractedToken =
       hash
         .substring(1)
         .split("&")
-        .find((item) => item.startsWith("access_token"))
-        ?.split("=")[1] ?? "";
+        .find((elem) => elem.startsWith("access_token"))
+        ?.split("=")[1] ?? null;
 
-    if (extractedToken) {
-      token = extractedToken;
-      window.localStorage.setItem("token", token);
-    }
-
-    // Clear the hash from the URL
     window.location.hash = "";
+    if (extractedToken) {
+      window.localStorage.setItem("token", extractedToken);
+      token = extractedToken;
+    }
   }
 
   return token;
-}
+};
 
 export async function getUserProfile(token: string): Promise<UserProfile> {
   const response = await fetch(USER_PROFILE_ENDPOINT, {
@@ -106,10 +103,27 @@ export async function getUserProfile(token: string): Promise<UserProfile> {
   return await response.json();
 }
 
-const SCOPES = ["user-top-read", "user-read-private", "user-read-email"].join(
-  " "
-);
+const SCOPES = [
+  "user-top-read",
+  "user-read-private",
+  "user-read-email",
+  "user-read-recently-played",
+].join(" ");
 
 export const loginUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
   SCOPES
 )}`;
+
+export async function makeSpotifyRequest(endpoint: string, token: string) {
+  const response = await fetch(endpoint, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return response;
+}
