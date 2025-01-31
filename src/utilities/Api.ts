@@ -5,6 +5,7 @@ import {
   TopArtists,
   TopTracks,
   TopTracksAndArtists,
+  UserProfile,
 } from "../components/Interfaces";
 import {
   CLIENT_ID,
@@ -13,6 +14,7 @@ import {
   TOP_TRACKS_ENDPOINT,
   TOP_ARTISTS_ENDPOINT,
   RESPONSE_TYPE,
+  USER_PROFILE_ENDPOINT,
 } from "./Config";
 
 interface SpotifyApiResponse<T> {
@@ -92,7 +94,21 @@ export function getToken(): string {
   return token;
 }
 
-const SCOPES = ["user-top-read"].join(" ");
+export async function getUserProfile(token: string): Promise<UserProfile> {
+  const response = await fetch(USER_PROFILE_ENDPOINT, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error fetching user profile: ${response.statusText}`);
+  }
+
+  return await response.json();
+}
+
+const SCOPES = ["user-top-read", "user-read-private", "user-read-email"].join(
+  " "
+);
 
 export const loginUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
   SCOPES

@@ -1,14 +1,16 @@
 import { useEffect, useReducer } from "react";
-import { getToken, getTopTracksAndArtists } from "./Api";
+import { getToken, getTopTracksAndArtists, getUserProfile } from "./Api";
 import {
   SearchOptions,
   TimeOptions,
   TopTracksAndArtists,
+  UserProfile,
 } from "../components/Interfaces";
 
 type State = {
   token: string;
   topTracksAndArtists: TopTracksAndArtists | null;
+  userProfile: UserProfile | null;
   isLoading: boolean;
   currentSearchOption: SearchOptions;
   currentTimeOption: TimeOptions;
@@ -18,6 +20,7 @@ type State = {
 type Action =
   | { type: "SET_TOKEN"; payload: string }
   | { type: "SET_TRACKS_AND_ARTISTS"; payload: TopTracksAndArtists }
+  | { type: "SET_USER_PROFILE"; payload: UserProfile }
   | { type: "SET_ERROR"; payload: string | null }
   | { type: "RESET" }
   | { type: "SET_SEARCH_OPTION"; payload: SearchOptions }
@@ -26,6 +29,7 @@ type Action =
 const initialState: State = {
   token: "",
   topTracksAndArtists: null,
+  userProfile: null,
   isLoading: true,
   currentSearchOption: SearchOptions.TRACK,
   currentTimeOption: TimeOptions.SHORT_TERM,
@@ -42,6 +46,8 @@ function reducer(state: State, action: Action): State {
         topTracksAndArtists: action.payload,
         isLoading: false,
       };
+    case "SET_USER_PROFILE":
+      return { ...state, userProfile: action.payload };
     case "SET_SEARCH_OPTION":
       return { ...state, currentSearchOption: action.payload };
     case "SET_TIME_OPTION":
@@ -67,12 +73,19 @@ export function useSpotifyApi() {
 
   useEffect(() => {
     if (state.token) {
-      getTopTracksAndArtists(state.token)
-        .then((data) => {
-          dispatch({ type: "SET_TRACKS_AND_ARTISTS", payload: data });
+      Promise.all([
+        getTopTracksAndArtists(state.token),
+        getUserProfile(state.token),
+      ])
+        .then(([tracksAndArtists, profile]) => {
+          dispatch({
+            type: "SET_TRACKS_AND_ARTISTS",
+            payload: tracksAndArtists,
+          });
+          dispatch({ type: "SET_USER_PROFILE", payload: profile });
         })
         .catch((error) => {
-          console.error("Error fetching tracks and artists:", error);
+          console.error("Error fetching data:", error);
           dispatch({ type: "SET_ERROR", payload: "Failed to fetch data" });
         });
     }
@@ -80,7 +93,10 @@ export function useSpotifyApi() {
 
   const logOut = () => {
     window.localStorage.removeItem("token");
+    window.localStorage.clear();
+    window.location.hash = "";
     dispatch({ type: "RESET" });
+    window.location.reload();
   };
 
   return { state, dispatch, logOut };

@@ -40,7 +40,11 @@ function App() {
   return (
     <DarkModeProvider>
       <div className="flex flex-col h-screen">
-        <NavBar handleLogOut={logOut} token={state.token} />
+        <NavBar
+          handleLogOut={logOut}
+          token={state.token}
+          userProfile={state.userProfile}
+        />
         <div className="flex-grow py-10 bg-background dark:bg-neutral-dark">
           {state.error ? (
             <ErrorComponent message={state.error} onRetry={logOut} />
