@@ -18,7 +18,7 @@ function App() {
           token={state.token}
           userProfile={state.userProfile}
         />
-        <div className="flex-grow py-10 bg-background dark:bg-neutral-dark overflow-y-auto">
+        <div className="flex-grow py-10 pb-24 bg-background dark:bg-neutral-dark overflow-y-auto">
           {state.error ? (
             <ErrorComponent message={state.error} onRetry={logOut} />
           ) : state.token ? (
