@@ -12,13 +12,14 @@ function App() {
 
   return (
     <DarkModeProvider>
-      <div className="flex flex-col h-screen">
+      <div className="min-h-screen flex flex-col">
         <NavBar
           handleLogOut={logOut}
           token={state.token}
           userProfile={state.userProfile}
+          className="sticky top-0 z-50"
         />
-        <div className="flex-grow py-10 pb-24 bg-background dark:bg-neutral-dark overflow-y-auto">
+        <main className="flex-1 pt-10 pb-24 bg-background dark:bg-neutral-dark">
           {state.error ? (
             <ErrorComponent message={state.error} onRetry={logOut} />
           ) : state.token ? (
@@ -33,7 +34,7 @@ function App() {
           ) : (
             <SignInWithSpotify />
           )}
-        </div>
+        </main>
       </div>
     </DarkModeProvider>
   );
