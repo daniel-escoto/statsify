@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Menu } from "@headlessui/react";
 import { Link, useLocation } from "react-router-dom";
 import { UserProfile } from "./Interfaces";
-import DarkModeToggle from "./DarkModeToggle";
 import ProfileButton from "./ProfileButton";
 import ProfileMenu from "./ProfileMenu";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -65,8 +64,6 @@ export default function NavBar({
           </div>
 
           <div className="flex items-center space-x-4">
-            <DarkModeToggle />
-
             {token && userProfile ? (
               <>
                 <Menu as="div" className="relative">

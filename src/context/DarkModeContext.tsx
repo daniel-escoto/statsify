@@ -2,10 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 const DarkModeContext = createContext<{
   darkMode: boolean;
-  toggleDarkMode: () => void;
 }>({
   darkMode: false,
-  toggleDarkMode: () => {},
 });
 
 export const DarkModeProvider = ({
@@ -14,23 +12,35 @@ export const DarkModeProvider = ({
   children: React.ReactNode;
 }) => {
   const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("theme") === "dark" || false
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
   useEffect(() => {
+    // Function to handle system theme changes
+    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+      setDarkMode(e.matches);
+    };
+
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+    // Cleanup listener
+    return () =>
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+  }, []);
+
+  // Apply theme to document whenever darkMode changes
+  useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
     }
   }, [darkMode]);
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-
   return (
-    <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <DarkModeContext.Provider value={{ darkMode }}>
       {children}
     </DarkModeContext.Provider>
   );
