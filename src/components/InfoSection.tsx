@@ -3,6 +3,7 @@ import TickerText from "./TickerText";
 import Rank from "./Rank";
 
 interface InfoSectionProps {
+  image: string;
   title: string;
   subtitle?: { id: string; name: string; url?: string; separator?: string }[];
   extraInfo?: string;
@@ -10,6 +11,7 @@ interface InfoSectionProps {
 }
 
 export function InfoSection({
+  image,
   title,
   subtitle,
   extraInfo,
@@ -17,14 +19,20 @@ export function InfoSection({
 }: InfoSectionProps) {
   return (
     <div className="relative h-24 bg-gray-900 text-white overflow-hidden">
+      {/* Layer 1: Background Image */}
       <motion.img
-        src={title}
+        src={image}
         alt="Backdrop"
-        className="absolute inset-0 object-cover opacity-30"
+        className="absolute inset-0 w-full h-full object-cover"
         whileHover={{ opacity: 0.5 }}
         transition={{ duration: 0.3 }}
       />
-      <div className="absolute inset-0 backdrop-blur-md backdrop-filter px-3 pt-2">
+
+      {/* Layer 2: Heavy Blur Overlay */}
+      <div className="absolute inset-0 backdrop-blur-xl bg-black/40"></div>
+
+      {/* Layer 3: Text Content */}
+      <div className="relative z-10 px-3 pt-2 h-full flex flex-col justify-between">
         <motion.p
           className="text-sm font-bold truncate"
           whileHover={{ translateY: -2 }}

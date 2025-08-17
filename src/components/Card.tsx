@@ -31,6 +31,7 @@ export function Card({ data, rank }: CardProps) {
     >
       <ImageSection image={data.image} title={data.title} />
       <InfoSection
+        image={data.image}
         title={data.title}
         subtitle={data.subtitle}
         extraInfo={data.extraInfo}
