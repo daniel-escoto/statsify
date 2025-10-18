@@ -1,5 +1,4 @@
 import {
-  Album,
   Artist,
   Song,
   TopArtists,
@@ -7,7 +6,7 @@ import {
   TopTracksAndArtists,
   UserProfile,
   CurrentlyPlaying,
-} from "../components/Interfaces";
+} from '../components/Interfaces';
 import {
   CLIENT_ID,
   REDIRECT_URI,
@@ -17,7 +16,7 @@ import {
   RESPONSE_TYPE,
   USER_PROFILE_ENDPOINT,
   CURRENTLY_PLAYING_ENDPOINT,
-} from "./Config";
+} from './Config';
 
 interface SpotifyApiResponse<T> {
   items: T[];
@@ -31,12 +30,12 @@ async function fetchTopItems<T>(
   mediumTermItems: T[];
   longTermItems: T[];
 }> {
-  const timeRanges = ["short_term", "medium_term", "long_term"];
+  const timeRanges = ['short_term', 'medium_term', 'long_term'];
   const results = await Promise.all(
-    timeRanges.map((timeRange) =>
+    timeRanges.map(timeRange =>
       fetch(`${endpoint}?time_range=${timeRange}&limit=50`, {
         headers: { Authorization: `Bearer ${token}` },
-      }).then(async (response) => {
+      }).then(async response => {
         if (!response.ok) {
           throw new Error(`Error fetching data: ${response.statusText}`);
         }
@@ -73,19 +72,19 @@ export async function getTopTracksAndArtists(
 
 export const getToken = () => {
   const hash = window.location.hash;
-  let token = window.localStorage.getItem("token");
+  let token = window.localStorage.getItem('token');
 
   if (!token && hash) {
     const extractedToken =
       hash
         .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        ?.split("=")[1] ?? null;
+        .split('&')
+        .find(elem => elem.startsWith('access_token'))
+        ?.split('=')[1] ?? null;
 
-    window.location.hash = "";
+    window.location.hash = '';
     if (extractedToken) {
-      window.localStorage.setItem("token", extractedToken);
+      window.localStorage.setItem('token', extractedToken);
       token = extractedToken;
     }
   }
@@ -124,12 +123,12 @@ export async function getCurrentlyPlaying(
 }
 
 const SCOPES = [
-  "user-top-read",
-  "user-read-private",
-  "user-read-email",
-  "user-read-recently-played",
-  "user-read-playback-state",
-].join(" ");
+  'user-top-read',
+  'user-read-private',
+  'user-read-email',
+  'user-read-recently-played',
+  'user-read-playback-state',
+].join(' ');
 
 export const loginUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
   SCOPES

@@ -1,15 +1,15 @@
-import { useSpotifyApi } from "../utilities/useSpotifyApi";
-import { SearchOptions, TimeOptions } from "../components/Interfaces";
-import Table from "../components/Table";
-import SegmentedSlider from "../components/SegmentedSlider";
-import { MusicalNoteIcon, UserIcon } from "@heroicons/react/24/outline";
+import { useSpotifyApi } from '../utilities/useSpotifyApi';
+import { SearchOptions, TimeOptions } from '../components/Interfaces';
+import Table from '../components/Table';
+import SegmentedSlider from '../components/SegmentedSlider';
+import { MusicalNoteIcon, UserIcon } from '@heroicons/react/24/outline';
 
 export default function TopPage() {
   const { state, dispatch } = useSpotifyApi();
 
   const handleSetSearchOption = (index: number) => {
     dispatch({
-      type: "SET_SEARCH_OPTION",
+      type: 'SET_SEARCH_OPTION',
       payload: index === 0 ? SearchOptions.TRACK : SearchOptions.ARTIST,
     });
   };
@@ -29,12 +29,12 @@ export default function TopPage() {
       default:
         timeOptionEnum = TimeOptions.SHORT_TERM;
     }
-    dispatch({ type: "SET_TIME_OPTION", payload: timeOptionEnum });
+    dispatch({ type: 'SET_TIME_OPTION', payload: timeOptionEnum });
   };
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex w-full flex-col items-center justify-center">
         <Table
           isLoading={state.isLoading}
           searchOptions={state.currentSearchOption}
@@ -44,14 +44,14 @@ export default function TopPage() {
       </div>
 
       {/* Sticky Bottom Tabs */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-xl bg-purple-950/20 border-t border-white/10">
-        <div className="flex flex-row justify-between items-center w-full py-6 px-4 max-w-7xl mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-purple-950/20 backdrop-blur-xl">
+        <div className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between px-4 py-6">
           <SegmentedSlider
             icons={[
-              <MusicalNoteIcon className="w-6 h-6" />,
-              <UserIcon className="w-6 h-6" />,
+              <MusicalNoteIcon key="song" className="h-6 w-6" />,
+              <UserIcon key="artist" className="h-6 w-6" />,
             ]}
-            labels={["Songs", "Artists"]}
+            labels={['Songs', 'Artists']}
             selectedIndex={
               state.currentSearchOption === SearchOptions.TRACK ? 0 : 1
             }
@@ -60,17 +60,23 @@ export default function TopPage() {
 
           <SegmentedSlider
             icons={[
-              <span className="text-sm font-semibold">1M</span>,
-              <span className="text-sm font-semibold">6M</span>,
-              <span className="text-sm font-semibold">ALL</span>,
+              <span key="1m" className="text-sm font-semibold">
+                1M
+              </span>,
+              <span key="6m" className="text-sm font-semibold">
+                6M
+              </span>,
+              <span key="all" className="text-sm font-semibold">
+                ALL
+              </span>,
             ]}
-            labels={["1 Month", "6 Months", "All Time"]}
+            labels={['1 Month', '6 Months', 'All Time']}
             selectedIndex={
               state.currentTimeOption === TimeOptions.SHORT_TERM
                 ? 0
                 : state.currentTimeOption === TimeOptions.MEDIUM_TERM
-                ? 1
-                : 2
+                  ? 1
+                  : 2
             }
             onChange={handleSetTimeOption}
           />

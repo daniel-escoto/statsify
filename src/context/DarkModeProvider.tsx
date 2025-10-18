@@ -1,10 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-
-const DarkModeContext = createContext<{
-  darkMode: boolean;
-}>({
-  darkMode: false,
-});
+import React, { useEffect, useState } from 'react';
+import { DarkModeContext } from './DarkModeContext';
 
 export const DarkModeProvider = ({
   children,
@@ -12,7 +7,7 @@ export const DarkModeProvider = ({
   children: React.ReactNode;
 }) => {
   const [darkMode, setDarkMode] = useState(
-    () => window.matchMedia("(prefers-color-scheme: dark)").matches
+    () => window.matchMedia('(prefers-color-scheme: dark)').matches
   );
 
   useEffect(() => {
@@ -22,20 +17,20 @@ export const DarkModeProvider = ({
     };
 
     // Listen for system theme changes
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addEventListener("change", handleSystemThemeChange);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
 
     // Cleanup listener
     return () =>
-      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+      mediaQuery.removeEventListener('change', handleSystemThemeChange);
   }, []);
 
   // Apply theme to document whenever darkMode changes
   useEffect(() => {
     if (darkMode) {
-      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
 
@@ -45,5 +40,3 @@ export const DarkModeProvider = ({
     </DarkModeContext.Provider>
   );
 };
-
-export const useDarkMode = () => useContext(DarkModeContext);
