@@ -19,7 +19,7 @@ function App() {
           userProfile={state.userProfile}
           className="sticky top-0 z-50"
         />
-        <main className="flex-1 pt-10 pb-24 bg-background dark:bg-neutral-dark">
+        <main className="flex-1 pt-10 pb-36 bg-background dark:bg-neutral-dark">
           {state.error ? (
             <ErrorComponent message={state.error} onRetry={logOut} />
           ) : state.token ? (

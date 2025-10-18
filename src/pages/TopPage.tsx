@@ -2,28 +2,28 @@ import { useSpotifyApi } from "../utilities/useSpotifyApi";
 import { SearchOptions, TimeOptions } from "../components/Interfaces";
 import Table from "../components/Table";
 import SegmentedSlider from "../components/SegmentedSlider";
+import { MusicalNoteIcon, UserIcon } from "@heroicons/react/24/outline";
 
 export default function TopPage() {
   const { state, dispatch } = useSpotifyApi();
 
-  const handleSetSearchOption = (searchOption: string) => {
+  const handleSetSearchOption = (index: number) => {
     dispatch({
       type: "SET_SEARCH_OPTION",
-      payload:
-        searchOption === "Songs" ? SearchOptions.TRACK : SearchOptions.ARTIST,
+      payload: index === 0 ? SearchOptions.TRACK : SearchOptions.ARTIST,
     });
   };
 
-  const handleSetTimeOption = (timeOption: string) => {
+  const handleSetTimeOption = (index: number) => {
     let timeOptionEnum;
-    switch (timeOption) {
-      case "1 Month":
+    switch (index) {
+      case 0:
         timeOptionEnum = TimeOptions.SHORT_TERM;
         break;
-      case "6 Months":
+      case 1:
         timeOptionEnum = TimeOptions.MEDIUM_TERM;
         break;
-      case "All Time":
+      case 2:
         timeOptionEnum = TimeOptions.LONG_TERM;
         break;
       default:
@@ -33,41 +33,49 @@ export default function TopPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full space-y-12">
-      <div className="flex flex-col items-center w-full max-w-4xl space-y-4 md:flex-row md:justify-between md:space-x-4 md:space-y-0">
-        <div className="w-[90%] max-w-xs md:w-auto">
+    <>
+      <div className="flex flex-col items-center justify-center w-full">
+        <Table
+          isLoading={state.isLoading}
+          searchOptions={state.currentSearchOption}
+          timeOptions={state.currentTimeOption}
+          topTracksAndArtists={state.topTracksAndArtists}
+        />
+      </div>
+
+      {/* Sticky Bottom Tabs */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-xl bg-purple-950/20 border-t border-white/10">
+        <div className="flex flex-row justify-between items-center w-full py-6 px-4 max-w-7xl mx-auto">
           <SegmentedSlider
-            options={["Songs", "Artists"]}
-            selected={
-              state.currentSearchOption === SearchOptions.TRACK
-                ? "Songs"
-                : "Artists"
+            icons={[
+              <MusicalNoteIcon className="w-6 h-6" />,
+              <UserIcon className="w-6 h-6" />,
+            ]}
+            labels={["Songs", "Artists"]}
+            selectedIndex={
+              state.currentSearchOption === SearchOptions.TRACK ? 0 : 1
             }
             onChange={handleSetSearchOption}
           />
-        </div>
 
-        <div className="w-[90%] max-w-xs md:w-auto">
           <SegmentedSlider
-            options={["1 Month", "6 Months", "All Time"]}
-            selected={
+            icons={[
+              <span className="text-sm font-semibold">1M</span>,
+              <span className="text-sm font-semibold">6M</span>,
+              <span className="text-sm font-semibold">ALL</span>,
+            ]}
+            labels={["1 Month", "6 Months", "All Time"]}
+            selectedIndex={
               state.currentTimeOption === TimeOptions.SHORT_TERM
-                ? "1 Month"
+                ? 0
                 : state.currentTimeOption === TimeOptions.MEDIUM_TERM
-                ? "6 Months"
-                : "All Time"
+                ? 1
+                : 2
             }
             onChange={handleSetTimeOption}
           />
         </div>
       </div>
-
-      <Table
-        isLoading={state.isLoading}
-        searchOptions={state.currentSearchOption}
-        timeOptions={state.currentTimeOption}
-        topTracksAndArtists={state.topTracksAndArtists}
-      />
-    </div>
+    </>
   );
 }
