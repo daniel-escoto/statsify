@@ -25,7 +25,7 @@ export default function TickerText({ text }: TickerTextProps) {
           initial={{ x: "0%" }}
           transition={{
             repeat: Infinity,
-            duration: 20, // Adjust duration for speed
+            duration: 25, // Adjust duration for speed
             ease: "linear",
           }}
         >
