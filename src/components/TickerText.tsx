@@ -20,8 +20,8 @@ export default function TickerText({ text }: TickerTextProps) {
     <div ref={containerRef} className="overflow-hidden whitespace-nowrap">
       {isOverflowing ? (
         <motion.div
-          className="inline-block"
-          animate={{ x: ["0%", "-100%"] }}
+          className="inline-flex"
+          animate={{ x: ["0%", "-25%"] }}
           initial={{ x: "0%" }}
           transition={{
             repeat: Infinity,
@@ -29,7 +29,10 @@ export default function TickerText({ text }: TickerTextProps) {
             ease: "linear",
           }}
         >
-          {text}
+          <span className="pr-8">{text}</span>
+          <span className="pr-8">{text}</span>
+          <span className="pr-8">{text}</span>
+          <span className="pr-8">{text}</span>
         </motion.div>
       ) : (
         <span>{text}</span>
