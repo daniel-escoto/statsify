@@ -17,7 +17,6 @@ function App() {
           handleLogOut={logOut}
           token={state.token}
           userProfile={state.userProfile}
-          className="sticky top-0 z-50"
         />
         <main className="flex-1 bg-background pb-36 pt-10 dark:bg-neutral-dark">
           {state.error ? (

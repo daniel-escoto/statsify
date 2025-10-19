@@ -25,13 +25,15 @@ export default function NavBar({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className={`bg-primary dark:bg-primary-dark ${className}`}>
+    <nav
+      className={`border-b border-dashed border-primary bg-background dark:border-primary dark:bg-neutral-dark ${className}`}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-8">
             <Link
               to="/"
-              className="text-2xl font-bold text-white dark:text-foreground-dark"
+              className="text-2xl font-bold text-accent-dark dark:text-neutral-100"
             >
               Statsify
             </Link>
@@ -43,8 +45,8 @@ export default function NavBar({
                   to="/top"
                   className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                     isTopPage
-                      ? 'bg-primary-light text-white'
-                      : 'text-gray-300 hover:bg-primary-light hover:text-white'
+                      ? 'bg-primary text-white'
+                      : 'text-gray-800 hover:bg-primary-light hover:text-white'
                   }`}
                 >
                   Top
@@ -53,8 +55,8 @@ export default function NavBar({
                   to="/recent"
                   className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                     isRecentPage
-                      ? 'bg-primary-light text-white'
-                      : 'text-gray-300 hover:bg-primary-light hover:text-white'
+                      ? 'bg-primary text-white'
+                      : 'text-gray-800 hover:bg-primary-light hover:text-white'
                   }`}
                 >
                   Recent

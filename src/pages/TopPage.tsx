@@ -45,7 +45,7 @@ export default function TopPage() {
 
       {/* Sticky Bottom Tabs */}
       <div className="fixed bottom-0 left-0 right-0 z-40">
-        <div className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between px-4 py-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between px-4 pb-4 pt-6">
           <SegmentedSlider
             icons={[
               <MusicalNoteIcon key="song" className="h-6 w-6" />,
