@@ -66,11 +66,11 @@ export default function TopPage() {
               <span key="6m" className="text-sm font-semibold">
                 6M
               </span>,
-              <span key="all" className="text-sm font-semibold">
-                ALL
+              <span key="1y" className="text-sm font-semibold">
+                1Y
               </span>,
             ]}
-            labels={['1 Month', '6 Months', 'All Time']}
+            labels={['1 Month', '6 Months', '1 Year']}
             selectedIndex={
               state.currentTimeOption === TimeOptions.SHORT_TERM
                 ? 0
