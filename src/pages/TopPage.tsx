@@ -44,7 +44,7 @@ export default function TopPage() {
       </div>
 
       {/* Sticky Bottom Tabs */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-purple-950/20 backdrop-blur-xl">
+      <div className="fixed bottom-0 left-0 right-0 z-40">
         <div className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between px-4 py-6">
           <SegmentedSlider
             icons={[
