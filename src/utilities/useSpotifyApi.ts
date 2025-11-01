@@ -1,10 +1,11 @@
-import { useEffect, useReducer, useCallback } from 'react';
+import { useEffect, useReducer, useCallback, Dispatch } from 'react';
 import {
   getToken,
   getTopTracksAndArtists,
   getUserProfile,
   makeSpotifyRequest,
   getCurrentlyPlaying,
+  UnauthorizedError,
 } from './Api';
 import {
   SearchOptions,
@@ -73,6 +74,15 @@ function reducer(state: State, action: Action): State {
   }
 }
 
+/**
+ * Clears expired token and resets app state to show sign-in screen
+ */
+function clearExpiredToken(dispatch: Dispatch<Action>) {
+  window.localStorage.removeItem('token');
+  window.location.hash = '';
+  dispatch({ type: 'RESET' });
+}
+
 export function useSpotifyApi() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -97,8 +107,12 @@ export function useSpotifyApi() {
           dispatch({ type: 'SET_USER_PROFILE', payload: profile });
         })
         .catch(error => {
-          console.error('Error fetching data:', error);
-          dispatch({ type: 'SET_ERROR', payload: 'Failed to fetch data' });
+          if (error instanceof UnauthorizedError) {
+            clearExpiredToken(dispatch);
+          } else {
+            console.error('Error fetching data:', error);
+            dispatch({ type: 'SET_ERROR', payload: 'Failed to fetch data' });
+          }
         });
     }
   }, [state.token]);
@@ -111,8 +125,12 @@ export function useSpotifyApi() {
         const data = await getCurrentlyPlaying(state.token);
         dispatch({ type: 'SET_CURRENTLY_PLAYING', payload: data });
       } catch (error) {
-        console.error('Error fetching current track:', error);
-        dispatch({ type: 'SET_CURRENTLY_PLAYING', payload: null });
+        if (error instanceof UnauthorizedError) {
+          clearExpiredToken(dispatch);
+        } else {
+          // Other errors (like no track playing) - silently ignore
+          dispatch({ type: 'SET_CURRENTLY_PLAYING', payload: null });
+        }
       }
     };
 
@@ -133,7 +151,14 @@ export function useSpotifyApi() {
       if (!state.token) {
         throw new Error('No token available');
       }
-      return makeSpotifyRequest(endpoint, state.token);
+      try {
+        return await makeSpotifyRequest(endpoint, state.token);
+      } catch (error) {
+        if (error instanceof UnauthorizedError) {
+          clearExpiredToken(dispatch);
+        }
+        throw error;
+      }
     },
     [state.token]
   );

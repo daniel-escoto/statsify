@@ -22,6 +22,36 @@ interface SpotifyApiResponse<T> {
   items: T[];
 }
 
+export class UnauthorizedError extends Error {
+  constructor(message: string = 'Unauthorized - token expired') {
+    super(message);
+    this.name = 'UnauthorizedError';
+  }
+}
+
+/**
+ * Wrapper function for Spotify API requests that handles authentication and 401 errors
+ */
+async function fetchWithAuth(
+  url: string,
+  token: string,
+  options: RequestInit = {}
+): Promise<Response> {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      ...options.headers,
+    },
+  });
+
+  if (response.status === 401) {
+    throw new UnauthorizedError('Token expired');
+  }
+
+  return response;
+}
+
 async function fetchTopItems<T>(
   endpoint: string,
   token: string
@@ -32,17 +62,17 @@ async function fetchTopItems<T>(
 }> {
   const timeRanges = ['short_term', 'medium_term', 'long_term'];
   const results = await Promise.all(
-    timeRanges.map(timeRange =>
-      fetch(`${endpoint}?time_range=${timeRange}&limit=50`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then(async response => {
-        if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.statusText}`);
-        }
-        const data: SpotifyApiResponse<T> = await response.json();
-        return data.items;
-      })
-    )
+    timeRanges.map(async timeRange => {
+      const response = await fetchWithAuth(
+        `${endpoint}?time_range=${timeRange}&limit=50`,
+        token
+      );
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+      const data: SpotifyApiResponse<T> = await response.json();
+      return data.items;
+    })
   );
 
   return {
@@ -93,9 +123,7 @@ export const getToken = () => {
 };
 
 export async function getUserProfile(token: string): Promise<UserProfile> {
-  const response = await fetch(USER_PROFILE_ENDPOINT, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await fetchWithAuth(USER_PROFILE_ENDPOINT, token);
 
   if (!response.ok) {
     throw new Error(`Error fetching user profile: ${response.statusText}`);
@@ -107,9 +135,7 @@ export async function getUserProfile(token: string): Promise<UserProfile> {
 export async function getCurrentlyPlaying(
   token: string
 ): Promise<CurrentlyPlaying | null> {
-  const response = await fetch(CURRENTLY_PLAYING_ENDPOINT, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await fetchWithAuth(CURRENTLY_PLAYING_ENDPOINT, token);
 
   if (response.status === 204) {
     return null;
@@ -135,11 +161,7 @@ export const loginUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${
 )}`;
 
 export async function makeSpotifyRequest(endpoint: string, token: string) {
-  const response = await fetch(endpoint, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetchWithAuth(endpoint, token);
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
