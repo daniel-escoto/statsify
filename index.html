@@ -8,9 +8,31 @@
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#faf5ff" id="theme-color" />
     <title>Statsify</title>
   </head>
   <body>
+    <script>
+      const meta = document.getElementById('theme-color');
+      const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function updateThemeColor(e) {
+        const isDark = e.matches;
+        meta.content = isDark ? '#4b5563' : '#faf5ff';
+        document.body.style.backgroundColor = isDark ? '#4b5563' : '#faf5ff';
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+
+      // Set on load
+      updateThemeColor(darkMode);
+
+      // React to changes
+      darkMode.addEventListener('change', updateThemeColor);
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
