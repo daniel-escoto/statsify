@@ -4,7 +4,6 @@ import {
   getTopTracksAndArtists,
   getUserProfile,
   makeSpotifyRequest,
-  getCurrentlyPlaying,
   UnauthorizedError,
 } from './Api';
 import {
@@ -12,7 +11,6 @@ import {
   TimeOptions,
   TopTracksAndArtists,
   UserProfile,
-  CurrentlyPlaying,
 } from '../components/Interfaces';
 
 type State = {
@@ -23,7 +21,6 @@ type State = {
   currentSearchOption: SearchOptions;
   currentTimeOption: TimeOptions;
   error: string | null;
-  currentlyPlaying: CurrentlyPlaying | null;
 };
 
 type Action =
@@ -33,8 +30,7 @@ type Action =
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'RESET' }
   | { type: 'SET_SEARCH_OPTION'; payload: SearchOptions }
-  | { type: 'SET_TIME_OPTION'; payload: TimeOptions }
-  | { type: 'SET_CURRENTLY_PLAYING'; payload: CurrentlyPlaying | null };
+  | { type: 'SET_TIME_OPTION'; payload: TimeOptions };
 
 const initialState: State = {
   token: '',
@@ -44,7 +40,6 @@ const initialState: State = {
   currentSearchOption: SearchOptions.TRACK,
   currentTimeOption: TimeOptions.SHORT_TERM,
   error: null,
-  currentlyPlaying: null,
 };
 
 function reducer(state: State, action: Action): State {
@@ -65,8 +60,6 @@ function reducer(state: State, action: Action): State {
       return { ...state, currentTimeOption: action.payload };
     case 'SET_ERROR':
       return { ...state, error: action.payload, isLoading: false };
-    case 'SET_CURRENTLY_PLAYING':
-      return { ...state, currentlyPlaying: action.payload };
     case 'RESET':
       return initialState;
     default:
@@ -115,27 +108,6 @@ export function useSpotifyApi() {
           }
         });
     }
-  }, [state.token]);
-
-  useEffect(() => {
-    if (!state.token) return;
-
-    const fetchCurrentTrack = async () => {
-      try {
-        const data = await getCurrentlyPlaying(state.token);
-        dispatch({ type: 'SET_CURRENTLY_PLAYING', payload: data });
-      } catch (error) {
-        if (error instanceof UnauthorizedError) {
-          clearExpiredToken(dispatch);
-        } else {
-          // Other errors (like no track playing) - silently ignore
-          dispatch({ type: 'SET_CURRENTLY_PLAYING', payload: null });
-        }
-      }
-    };
-
-    const interval = setInterval(fetchCurrentTrack, 10000);
-    return () => clearInterval(interval);
   }, [state.token]);
 
   const logOut = () => {

@@ -5,7 +5,6 @@ import SignInWithSpotify from './components/SignInWithSpotify';
 import ErrorComponent from './components/ErrorComponent';
 import TopPage from './pages/TopPage';
 import RecentPage from './pages/RecentPage';
-import NowPlayingFooter from './components/NowPlayingFooter';
 import { DarkModeProvider } from './context';
 function App() {
   const { state, logOut } = useSpotifyApi();
@@ -18,7 +17,7 @@ function App() {
           token={state.token}
           userProfile={state.userProfile}
         />
-        <main className="flex-1 bg-background pb-36 pt-10 dark:bg-neutral-dark">
+        <main className="flex-1 bg-background pt-10 dark:bg-neutral-dark">
           {state.error ? (
             <ErrorComponent message={state.error} onRetry={logOut} />
           ) : state.token ? (
@@ -28,7 +27,6 @@ function App() {
                 <Route path="/top" element={<TopPage />} />
                 <Route path="/recent" element={<RecentPage />} />
               </Routes>
-              <NowPlayingFooter />
             </>
           ) : (
             <SignInWithSpotify />
